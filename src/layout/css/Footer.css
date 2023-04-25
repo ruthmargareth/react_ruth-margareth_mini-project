@@ -1,0 +1,33 @@
+*{
+    margin:0;
+}
+.footer{
+    font-family:"Lexend Deca";  
+}
+
+.footer-bg{
+    background-color:#F6F5F5;
+}
+
+hr{
+    padding:0;
+}
+
+.footer-title{
+    font-size: 30px;
+    color:#4054BB;
+    text-decoration: none;
+    font-weight: 900 ;
+}
+
+.footer-font{
+    font-size: 25px;
+    color:#4054BB;
+    text-decoration: none;
+}
+
+.footer-link{
+    font-size: 25px;
+    color:#FAC75C;
+    text-decoration: none;
+}

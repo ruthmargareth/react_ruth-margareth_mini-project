@@ -1,0 +1,25 @@
+*{
+    margin:0;
+}
+
+.navbar-bg{
+    height: 100px;
+    background-color:#F6F5F5;
+}
+.logo{
+    width:75px;
+    height:75px;
+}
+.navbar-font{
+    font-size: 25px;
+    color:#4054BB;
+    text-decoration: none;
+    font-family:"Lexend Deca";  
+}
+.navbar-title{
+    font-weight:900;
+}
+
+.navbar-content{
+    justify-content: center;
+}

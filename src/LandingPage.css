@@ -1,0 +1,134 @@
+*{
+    margin:0;
+}
+
+/* body */
+.body{
+    padding-top: 50px;
+    padding-bottom: 50px;
+    font-family:"Lexend Deca";  
+}
+
+.body-font{
+    text-align: left;
+    color:#4054BB;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.body-title{
+    font-size: 60px;
+    font-weight: 700;
+}
+
+/* facilities */
+.facilities{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family:"Lexend Deca";  
+}
+
+.facilities-font{
+    text-align: center;
+    color:#4054BB;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.button-font{
+    text-align: left;
+    color:#4054BB;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+/* contact us */
+.contact{
+    padding-top:10px;
+    padding-bottom: 50px;
+    font-family:"Lexend Deca";  
+}
+
+.contact-title{
+    font-size: 60px;
+    font-weight: 700;
+}
+
+.contact-font{
+    text-align: left;
+    color:#4054BB;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+/* button */
+.button1{
+    background-color:#FAC75C;
+    border-radius: 100px; 
+    color:#4054BB;
+}
+.button1:hover {
+    background-color: white;
+    color:#4054BB;
+    border: solid #FAC75C;
+}
+
+.button2{
+    background-color: white;
+    color:#4054BB;
+    border: solid #FAC75C;
+    border-radius: 100px;
+}
+
+.button2:hover {
+    background-color:#FAC75C;
+    color:#4054BB;
+}
+
+/* input */
+form{
+    box-sizing: border-box;
+}
+
+input, textarea{
+    color:#4054BB;
+}
+textarea, input[type=text],[type=password],[type=date],[type=time] {
+    width: 100%;
+    border-radius: 10px;
+    box-sizing: border-box;
+    border: solid #FAC75C ;
+}
+
+input[type=radio] {
+    border: solid #FAC75C;
+    accent-color: #FAC75C;
+}
+
+.dropdown-input {
+    width: 100%;
+    border-radius: 10px;
+    box-sizing: border-box;
+    border: solid #FAC75C ;
+}
+
+label {
+    display: inline-block;
+  }
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+  
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+.col-50 {
+    float: left;
+    width: 50%;
+    margin-top: 6px;
+}

@@ -1,0 +1,44 @@
+*{
+    margin:0;
+}
+
+.content{
+    font-family:"Lexend Deca"; 
+}
+
+.content-font{
+    text-align: left;
+    color:#4054BB;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.content-title{
+    font-size: 50px;
+}
+/* card */
+.card-font{
+    color:#4054BB
+}
+.card-layout{
+    border-radius: 10px;
+    border:solid #FAC75C;
+}
+
+.card-bg{
+    background-color: #F6F5F5;
+    border-radius: 10px;
+    border:hidden;
+}
+.card-font{
+    font-size: 25px;
+    color:#4054BB;
+    text-decoration: none;
+    font-family:"Lexend Deca";  
+    font-weight: 500;
+}
+
+.card-title{
+    font-size:30px;
+    text-align: center;
+}

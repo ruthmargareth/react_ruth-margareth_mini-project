@@ -1,0 +1,39 @@
+user: 
+- admin
+- customer 
+
+CRUD: 
+- create: membuat appointment 
+- read: menampilkan history appointment 
+- update: mengedit history appointment 
+- delete: menghapus history appointment
+
+Pages: 
+- Landing page (user)
+- Landing page (admin)
+- Login (admin)
+- grooming appointment 
+- grooming history 
+- grooming history detail 
+- grooming facilities 
+- hotel appointment 
+- hotel history 
+- hotel history detail 
+- hotel facilities 
+
+layout: 
+- navbar (user)
+- navbar (admin)
+- sidebar (user) 
+- sidebar (admin)
+- footer (user)
+- footer (admin)
+
+TODO: 
+1. buat design ✅
+2. slicing design ✅
+3. buat component ex: label, input, button, textarea ✅ 
+4. buat react route ✅
+5. 
+6. 
+

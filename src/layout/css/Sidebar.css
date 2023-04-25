@@ -1,0 +1,27 @@
+*{
+    margin:0;
+}
+.sidenav-bg{
+    height: 100%;
+    background-color:#FAC75C;
+    font-family:"Lexend Deca";
+}
+
+.sidenav-content {
+    text-decoration: none;
+    font-size: 40px;
+    font-weight: 500;
+    color: #4054BB;
+    display: block;
+    padding-top: 100px;
+    padding-bottom:100px;
+    text-align: center;
+    border-bottom: #F6F5F5;
+    border-bottom-style:groove;
+}
+
+.sidenav-content:hover {
+    background-color: white;
+    color:#4054BB;
+    border: solid #FAC75C;
+}
