@@ -1,4 +1,4 @@
-const TextArea = ({text, name, style, className, value, onChangeText }) => {
+const TextArea = ({text, name, style, className, value, onChange }) => {
     return(
         <>
             <textarea
@@ -8,7 +8,7 @@ const TextArea = ({text, name, style, className, value, onChangeText }) => {
             className={className}
             rows={3}
             value={value}
-            onChange={onChangeText}
+            onChange={onChange}
             />
         </>
     )
