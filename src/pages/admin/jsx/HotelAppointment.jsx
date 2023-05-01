@@ -1,4 +1,3 @@
-// import '../../../LandingPage.css'
 import '../css/content.css'
 import NavbarAdmin from '../../../layout/jsx/NavbarAdmin'
 import SidebarHotel from '../../../layout/jsx/SidebarHotel'
@@ -6,8 +5,45 @@ import FooterAdmin from '../../../layout/jsx/FooterAdmin'
 import Label from '../../../component/Label'
 import Input from '../../../component/Input'
 import Button from '../../../component/Button'
+import { useState } from 'react'
+import { addHotel } from '../../../HotelReducer'
+import { useDispatch, useSelector } from 'react-redux'
+import {v4 as uuid} from 'uuid'
+import { useNavigate } from 'react-router-dom'
 
 const HotelAppointment = () => {
+
+  const [ownerName, setOwnerName] = useState('')
+  const [ownerPhone, setOwnerPhone] = useState('')
+  const [petName, setPetName] = useState('')
+  const [species, setSpecies] = useState('')
+  const [breed, setBreed] = useState('')
+  const [gender, setGender] = useState('')
+  const [weight, setWeight] = useState('')
+  const [booking, setBooking] = useState('')
+  const [pickup, setPickup] = useState('')
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const hotel = useSelector((state) => state.hotel)
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(addHotel({
+      id: uuid(),
+      ownerName,
+      ownerPhone,
+      petName,
+      species,
+      breed,
+      gender,
+      weight,
+      booking,
+      pickup
+    }))
+    navigate('/Hotel-History')
+  }
+
   return (
     <>
     <NavbarAdmin/>
@@ -21,7 +57,8 @@ const HotelAppointment = () => {
             <div className="content-font px-5 py-5">
               <p className="content-title">Hotel Appointment</p>
             </div>
-            <form>
+
+            <form onSubmit={handleSubmit}>
               <div className="px-5 pb-5 appointment-font">
                 <div className="row pb-3">
                   <div className="col-25">
@@ -35,8 +72,7 @@ const HotelAppointment = () => {
                       id = {'ownerName'}
                       name = {'ownerName'}
                       type = {'text'}
-                      // value = {fullname}
-                      // onChangeText={(e) => setNama(e.target.value)}
+                      onChange={(e) => setOwnerName(e.target.value)}
                     />
                   </div>
                 </div>
@@ -52,8 +88,7 @@ const HotelAppointment = () => {
                       id = {'ownerPhone'}
                       name = {'ownerPhone'}
                       type = {'text'}
-                      // value = {fullname}
-                      // onChangeText={(e) => setNama(e.target.value)}
+                      onChange={(e) => setOwnerPhone(e.target.value)}
                     />
                   </div>
                 </div>
@@ -69,8 +104,7 @@ const HotelAppointment = () => {
                       id = {'petName'}
                       name = {'petName'}
                       type = {'text'}
-                      // value = {fullname}
-                      // onChangeText={(e) => setNama(e.target.value)}
+                      onChange={(e) => setPetName(e.target.value)}
                     />
                   </div>
                 </div>
@@ -83,7 +117,10 @@ const HotelAppointment = () => {
                   </div>
                   <div className="col-75">
                     <div className="dropdown dropdown-input">
-                      <select className="form-select appointment-font">
+                      <select 
+                        className="form-select appointment-font"
+                        onChange={(e) => setSpecies(e.target.value)}
+                      >
                         <option selected="" disabled="" value="">
                           Choose pet's species...
                         </option>
@@ -105,8 +142,7 @@ const HotelAppointment = () => {
                       id = {'breed'}
                       name = {'breed'}
                       type = {'text'}
-                      // value = {fullname}
-                      // onChangeText={(e) => setNama(e.target.value)}
+                      onChange={(e) => setBreed(e.target.value)}
                     />
                   </div>
                 </div>
@@ -124,9 +160,9 @@ const HotelAppointment = () => {
                         name = {'gender'}
                         type = {'radio'}
                         className={'form-check-input'}
-                        defaultValue={'Male'}
-                        // value = {fullname}
-                        // onChangeText={(e) => setNama(e.target.value)}
+                        // defaultValue={'Male'}
+                        value = {'Male'}
+                        onChange={(e) => setGender(e.target.value)}
                       />
                       <Label
                         htmlFor = {'male'}
@@ -139,9 +175,9 @@ const HotelAppointment = () => {
                         name = {'gender'}
                         type = {'radio'}
                         className={'form-check-input'}
-                        defaultValue={'Female'}
-                        // value = {fullname}
-                        // onChangeText={(e) => setNama(e.target.value)}
+                        // defaultValue={'Female'}
+                        value = {'Female'}
+                        onChange={(e) => setGender(e.target.value)}
                       />
                       <Label
                         htmlFor = {'female'}
@@ -159,7 +195,10 @@ const HotelAppointment = () => {
                   </div>
                   <div className="col-75">
                     <div className="dropdown dropdown-input">
-                      <select className="form-select appointment-font">
+                      <select 
+                        className="form-select appointment-font"
+                        onChange={(e) => setWeight(e.target.value)}
+                      >
                         <option selected="" disabled="" value="">
                           Choose pet's weight...
                         </option>
@@ -175,49 +214,46 @@ const HotelAppointment = () => {
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
-                      htmlFor = {'date'}
-                      label = {"Date"}
+                      htmlFor = {'booking'}
+                      label = {"Booking date"}
                     />
                   </div>
                   <div className="col-75">
                     <Input
                       className={'form-control appointment-font'}
-                      id = {'date'}
-                      name = {'date'}
+                      id = {'booking'}
+                      name = {'booking'}
                       type = {'date'}
-                      // value = {fullname}
-                      // onChangeText={(e) => setNama(e.target.value)}
+                      onChange={(e) => setBooking(e.target.value)}
                     />
                   </div>
                 </div>
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
-                      htmlFor = {'time'}
-                      label = {"Time"}
+                      htmlFor = {'pickup'}
+                      label = {"Pickup date"}
                     />
                   </div>
                   <div className="col-75">
                     <Input
                       className={'form-control appointment-font'}
-                      id = {'time'}
-                      name = {'time'}
-                      type = {'time'}
-                      // value = {fullname}
-                      // onChangeText={(e) => setNama(e.target.value)}
+                      id = {'pickup'}
+                      name = {'pickup'}
+                      type = {'date'}
+                      onChange={(e) => setPickup(e.target.value)}
                     />
                   </div>
                 </div>
-                
                   <Button
                     id = {'submitHotel'}
                     className={'btn button1 contact-font mt-3'}
                     label = {'Booking Appointment'}
                     style={{ width: "100%", textAlign: "center" }}
-                    // onClick={}
                   />
               </div>
             </form>
+
           </div>
         </div>
       </div>

@@ -11,7 +11,7 @@ const FooterAdmin = () => {
                         <div className="d-flex flex-column text-left ps-5">
                             <div>
                                 <img
-                                    src="src/assets/woofgang.png"
+                                    src="/src/assets/woofgang.png"
                                     className="logo"
                                     alt="woofgang"
                                 />

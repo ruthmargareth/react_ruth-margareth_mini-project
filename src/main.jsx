@@ -14,10 +14,23 @@ import GroomingHistory from './pages/admin/jsx/GroomingHistory.jsx'
 import HotelHistory from './pages/admin/jsx/HotelHistory.jsx'
 import GroomingHistoryDetail from './pages/admin/jsx/GroomingHistoryDetail.jsx'
 import HotelHistoryDetail from './pages/admin/jsx/HotelHistoryDetail.jsx'
-// import './index.css'
+import GroomingInfo from './pages/admin/jsx/GroomingInfo.jsx'
+import HotelInfo from './pages/admin/jsx/HotelInfo.jsx'
+import { Provider } from 'react-redux'
+import { configureStore } from '@reduxjs/toolkit'
+import HotelReducer from './HotelReducer.js'
+import GroomingReducer from './GroomingReducer.js'
+
+const store = configureStore ({
+  reducer: {
+    hotel: HotelReducer,
+    grooming: GroomingReducer
+  }
+})
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <Provider store={store}>
     <BrowserRouter>
       <Routes>
         <Route path ="/" exact element ={<App />} />
@@ -31,9 +44,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path ="Grooming-Appointment"  element ={<GroomingAppointment />} />
         <Route path ="Hotel-History"  element ={<HotelHistory />} />
         <Route path ="Grooming-History"  element ={<GroomingHistory />} />
-        <Route path ="Hotel-History-Detail"  element ={<HotelHistoryDetail />} />
-        <Route path ="Grooming-History-Detail"  element ={<GroomingHistoryDetail />} />
+        <Route path ="Hotel-History-Detail/:id"  element ={<HotelHistoryDetail />} />
+        <Route path ="Grooming-History-Detail/:id"  element ={<GroomingHistoryDetail />} />
+        <Route path ="Grooming-Info/:id" element = {<GroomingInfo/>} />
+        <Route path ="Hotel-Info/:id" element = {<HotelInfo/>} />
       </Routes>
     </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
 )
