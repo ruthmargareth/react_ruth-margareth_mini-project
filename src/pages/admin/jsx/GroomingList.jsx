@@ -1,0 +1,28 @@
+export const GroomingList =[
+    {
+        id:"1",
+        ownerName: "hanjisung",
+        ownerPhone: "08123456789",
+        petName: "berry",
+        species: "Dog",
+        breed: "Poodle",
+        gender: "female",
+        weight: "0-5kg",
+        packet: "styling",
+        date: "26/04/23",
+        time: "01:00PM",
+    },
+    {
+        id:"2",
+        ownerName: "leeknow",
+        ownerPhone: "08123456789",
+        petName: "dori",
+        species: "cat",
+        breed: "white-orange",
+        gender: "male",
+        weight: "0-5kg",
+        packet: "styling",
+        date: "26/04/23",
+        time: "02:00PM",
+    },
+]

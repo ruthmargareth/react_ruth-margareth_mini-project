@@ -1,4 +1,3 @@
-// import '../../../LandingPage.css'
 import '../css/content.css'
 import NavbarAdmin from '../../../layout/jsx/NavbarAdmin'
 import SidebarGrooming from '../../../layout/jsx/SidebarGrooming'
@@ -6,8 +5,47 @@ import FooterAdmin from '../../../layout/jsx/FooterAdmin'
 import Label from '../../../component/Label'
 import Input from '../../../component/Input'
 import Button from '../../../component/Button'
+import { useState } from 'react'
+import { addGrooming } from '../../../GroomingReducer'
+import { useDispatch, useSelector } from 'react-redux'
+import {v4 as uuid} from 'uuid'
+import { useNavigate } from 'react-router-dom'
 
 const GroomingAppointment = () => {
+
+  const [ownerName, setOwnerName] = useState('')
+  const [ownerPhone, setOwnerPhone] = useState('')
+  const [petName, setPetName] = useState('')
+  const [species, setSpecies] = useState('')
+  const [breed, setBreed] = useState('')
+  const [gender, setGender] = useState('')
+  const [weight, setWeight] = useState('')
+  const [packet, setPacket] = useState('')
+  const [date, setDate] = useState('')
+  const [time, setTime] = useState('')
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const grooming = useSelector((state) => state.grooming)
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(addGrooming({
+      id: uuid(),
+      ownerName,
+      ownerPhone,
+      petName,
+      species,
+      breed,
+      gender,
+      weight,
+      packet,
+      date,
+      time
+    }))
+    navigate('/Grooming-History')
+  }
+
   return (
     <>
     <NavbarAdmin/>
@@ -21,7 +59,8 @@ const GroomingAppointment = () => {
             <div className="content-font px-5 py-5">
               <p className="content-title">Grooming Appointment</p>
             </div>
-            <form>
+
+            <form onSubmit={handleSubmit}>
               <div className="px-5 pb-5 appointment-font">
                 <div className="row pb-3">
                   <div className="col-25">
@@ -35,8 +74,7 @@ const GroomingAppointment = () => {
                       id = {'ownerName'}
                       name = {'ownerName'}
                       type = {'text'}
-                      // value = {fullname}
-                      // onChangeText={(e) => setNama(e.target.value)}
+                      onChange={(e) => setOwnerName(e.target.value)}
                     />
                   </div>
                 </div>
@@ -52,8 +90,7 @@ const GroomingAppointment = () => {
                       id = {'ownerPhone'}
                       name = {'ownerPhone'}
                       type = {'text'}
-                      // value = {fullname}
-                      // onChangeText={(e) => setNama(e.target.value)}
+                      onChange={(e) => setOwnerPhone(e.target.value)}
                     />
                   </div>
                 </div>
@@ -69,8 +106,7 @@ const GroomingAppointment = () => {
                       id = {'petName'}
                       name = {'petName'}
                       type = {'text'}
-                      // value = {fullname}
-                      // onChangeText={(e) => setNama(e.target.value)}
+                      onChange={(e) => setPetName(e.target.value)}
                     />
                   </div>
                 </div>
@@ -83,7 +119,10 @@ const GroomingAppointment = () => {
                   </div>
                   <div className="col-75">
                     <div className="dropdown dropdown-input">
-                      <select className="form-select appointment-font">
+                      <select 
+                        className="form-select appointment-font"
+                        onChange={(e) => setSpecies(e.target.value)}
+                      >
                         <option selected="" disabled="" value="">
                           Choose pet's species...
                         </option>
@@ -105,13 +144,12 @@ const GroomingAppointment = () => {
                       id = {'breed'}
                       name = {'breed'}
                       type = {'text'}
-                      // value = {fullname}
-                      // onChangeText={(e) => setNama(e.target.value)}
+                      onChange={(e) => setBreed(e.target.value)}
                     />
                   </div>
                 </div>
                 <div className="row pb-3">
-                  <div className="col-25">
+                 <div className="col-25">
                   <Label
                       htmlFor = {'gender'}
                       label = {"Gender"}
@@ -124,9 +162,9 @@ const GroomingAppointment = () => {
                         name = {'gender'}
                         type = {'radio'}
                         className={'form-check-input'}
-                        defaultValue={'Male'}
-                        // value = {fullname}
-                        // onChangeText={(e) => setNama(e.target.value)}
+                        // defaultValue={'Male'}
+                        value = {'Male'}
+                        onChange={(e) => setGender(e.target.value)}
                       />
                       <Label
                         htmlFor = {'male'}
@@ -139,9 +177,9 @@ const GroomingAppointment = () => {
                         name = {'gender'}
                         type = {'radio'}
                         className={'form-check-input'}
-                        defaultValue={'Female'}
-                        // value = {fullname}
-                        // onChangeText={(e) => setNama(e.target.value)}
+                        // defaultValue={'Female'}
+                        value = {'Female'}
+                        onChange={(e) => setGender(e.target.value)}
                       />
                       <Label
                         htmlFor = {'female'}
@@ -159,7 +197,10 @@ const GroomingAppointment = () => {
                   </div>
                   <div className="col-75">
                     <div className="dropdown dropdown-input">
-                      <select className="form-select appointment-font">
+                      <select 
+                        className="form-select appointment-font"
+                        onChange={(e) => setWeight(e.target.value)}
+                      >
                         <option selected="" disabled="" value="">
                           Choose pet's weight...
                         </option>
@@ -181,7 +222,10 @@ const GroomingAppointment = () => {
                   </div>
                   <div className="col-75">
                     <div className="dropdown dropdown-input">
-                      <select className="form-select appointment-font">
+                      <select 
+                        className="form-select appointment-font"
+                        onChange={(e) => setPacket(e.target.value)}
+                      >
                         <option selected="" disabled="" value="">
                           Choose pet's packet...
                         </option>
@@ -206,8 +250,7 @@ const GroomingAppointment = () => {
                       id = {'date'}
                       name = {'date'}
                       type = {'date'}
-                      // value = {fullname}
-                      // onChangeText={(e) => setNama(e.target.value)}
+                      onChange={(e) => setDate(e.target.value)}
                     />
                   </div>
                 </div>
@@ -224,8 +267,7 @@ const GroomingAppointment = () => {
                       id = {'time'}
                       name = {'time'}
                       type = {'time'}
-                      // value = {fullname}
-                      // onChangeText={(e) => setNama(e.target.value)}
+                      onChange={(e) => setTime(e.target.value)}
                     />
                   </div>
                 </div>
@@ -234,10 +276,10 @@ const GroomingAppointment = () => {
                     className={'btn button1 contact-font mt-3'}
                     label = {'Booking Appointment'}
                     style={{ width: "100%", textAlign: "center" }}
-                    // onClick={}
                   />
               </div>
             </form>
+
           </div>
         </div>
       </div>

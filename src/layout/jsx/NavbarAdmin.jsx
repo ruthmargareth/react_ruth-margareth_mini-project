@@ -6,7 +6,7 @@ const NavbarAdmin = () => {
         <>
             <nav className="navbar navbar-expand-lg navbar-shadow navbar-bg font pt-4">
                 <div className="container-fluid">
-                <img src="src/assets/woofgang.png" className="logo" alt="woofgang" />
+                <img src="/src/assets/woofgang.png" className="logo" alt="woofgang" />
                 <Link to ='/Landing-Page-Admin' className="navbar-brand navbar-font navbar-title">
                     WOOFGANG
                 </Link>
@@ -43,13 +43,13 @@ const NavbarAdmin = () => {
                         </ul>
                     </li>
                     <li className="nav-item mx-4">
-                        <Link to ='/Grooming-Appointment' className="nav-link navbar-font navbar-content"
+                        <Link to ='/Grooming-History' className="nav-link navbar-font navbar-content"
                         aria-current="page">
                             Grooming
                         </Link>
                     </li>
                     <li className="nav-item mx-4">
-                        <Link to ='/Hotel-Appointment' className="nav-link navbar-font navbar-content"
+                        <Link to ='/Hotel-History' className="nav-link navbar-font navbar-content"
                         aria-current="page">
                             Hotel
                         </Link>
