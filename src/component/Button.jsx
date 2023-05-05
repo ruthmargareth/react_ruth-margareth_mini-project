@@ -1,4 +1,4 @@
-const Button = ({onClick, id, className, label, type, style}) => {
+const Button = ({onClick, id, className, label, type, style, toggle, target, dismiss}) => {
     
     return(
         <>
@@ -8,6 +8,9 @@ const Button = ({onClick, id, className, label, type, style}) => {
             type={type}
             onClick = {onClick}
             style={style}
+            data-bs-toggle={toggle}
+            data-bs-target={target}
+            data-bs-dismiss={dismiss}
             >
                 {label}
             </button>

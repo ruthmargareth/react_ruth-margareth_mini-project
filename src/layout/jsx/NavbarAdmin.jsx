@@ -1,12 +1,14 @@
+import Button from '../../component/Button'
 import '../css/Navbar.css'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+
 
 const NavbarAdmin = () => {
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-shadow navbar-bg font pt-4">
                 <div className="container-fluid">
-                <img src="src/assets/woofgang.png" className="logo" alt="woofgang" />
+                <img src="/src/assets/woofgang.png" className="logo" alt="woofgang" />
                 <Link to ='/Landing-Page-Admin' className="navbar-brand navbar-font navbar-title">
                     WOOFGANG
                 </Link>
@@ -43,13 +45,13 @@ const NavbarAdmin = () => {
                         </ul>
                     </li>
                     <li className="nav-item mx-4">
-                        <Link to ='/Grooming-Appointment' className="nav-link navbar-font navbar-content"
+                        <Link to ='/Grooming-History' className="nav-link navbar-font navbar-content"
                         aria-current="page">
                             Grooming
                         </Link>
                     </li>
                     <li className="nav-item mx-4">
-                        <Link to ='/Hotel-Appointment' className="nav-link navbar-font navbar-content"
+                        <Link to ='/Hotel-History' className="nav-link navbar-font navbar-content"
                         aria-current="page">
                             Hotel
                         </Link>
@@ -61,6 +63,18 @@ const NavbarAdmin = () => {
                         </Link>
                     </li>
                     </ul>
+                </div>
+                {/* login */}
+                <div className="collapse navbar-collapse justify-content-center">
+                <Link to={'/'}>
+                    <Button
+                        id = {'loginbtn'}
+                        className = {'btn button1 navbar-font'}
+                        label = {'Log out'}
+                        style={{ width: 150 }}
+                        //onClick={() => navigate('/')}
+                    />
+                </Link>
                 </div>
                 </div>
             </nav>

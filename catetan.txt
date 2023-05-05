@@ -29,11 +29,20 @@ layout:
 - footer (user)
 - footer (admin)
 
+technology: 
+- react-router-dom
+- uuid
+- react-redux
+- @reduxjs/toolkit
+- bootstrap , bootstrap icon
+- firebase
+
 TODO: 
 1. buat design ✅
 2. slicing design ✅
 3. buat component ex: label, input, button, textarea ✅ 
 4. buat react route ✅
-5. 
-6. 
+5. crud menggunakan redux ✅
+6. connect to hasura ✅
+7. login with firebase ✅
 
