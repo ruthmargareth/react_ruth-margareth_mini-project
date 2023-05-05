@@ -1,5 +1,7 @@
+import Button from '../../component/Button'
 import '../css/Navbar.css'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+
 
 const NavbarAdmin = () => {
     return (
@@ -61,6 +63,18 @@ const NavbarAdmin = () => {
                         </Link>
                     </li>
                     </ul>
+                </div>
+                {/* login */}
+                <div className="collapse navbar-collapse justify-content-center">
+                <Link to={'/'}>
+                    <Button
+                        id = {'loginbtn'}
+                        className = {'btn button1 navbar-font'}
+                        label = {'Log out'}
+                        style={{ width: 150 }}
+                        //onClick={() => navigate('/')}
+                    />
+                </Link>
                 </div>
                 </div>
             </nav>

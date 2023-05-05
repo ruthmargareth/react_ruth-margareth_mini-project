@@ -4,14 +4,32 @@ import Button from '../../../component/Button'
 import Label from '../../../component/Label'
 import Input from '../../../component/Input'
 import { useState } from 'react'
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 
-const LoginAdmin = () => {
+
+const SignUp = () => {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  
+  //get auth function from firebase
+  const auth = getAuth()
 
-  const onLogin = (e) => {
+  const onsubmit = async (e) => {
     e.preventDefault();
+
+    //send email & password to firebase sign up auth service 
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      // console.log('signed in: ', user);
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // console.log('error: ', errorCode + 'message: ', errorMessage);
+    });
   }
 
   return (
@@ -29,22 +47,21 @@ const LoginAdmin = () => {
           <div className="row d-flex justify-content-center">
             <div className="col-lg-8 login-font">
               <div className="fw-bold mb-2 login-title">
-                <span style={{ color: "#FAC75C" }}>Log</span> In
+                <span style={{ color: "#FAC75C" }}>Sign</span> Up
               </div>
               <div>
                 Welcome to WOOFGANG,{" "}
-                <span style={{ color: "#FAC75C" }}>please</span> put your
+                <span style={{ color: "#FAC75C" }}>please</span> Sign up
               </div>
               <div className="mb-5">
-                <span style={{ color: "#FAC75C" }}>login credentials</span> below to
-                start using this website
+                <span style={{ color: "#FAC75C" }}> before </span> using this website
               </div>
               <form>
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
                       htmlFor = {'Email'}
-                      label = {'Email'}
+                      label = {'email'}
                     />
                   </div>
                   <div className="col-75">
@@ -53,7 +70,7 @@ const LoginAdmin = () => {
                       name = {'email'}
                       type = {'email'}
                       placeholder={'insert email'}
-                      onChanget={(e) => setEmail(e.target.value)}
+                      onChange={(e) => setEmail(e.target.value)}
                       required
                     />
                   </div>
@@ -77,24 +94,18 @@ const LoginAdmin = () => {
                   </div>
                 </div>
                 <div className="row pt-3 ps-5">
+                <Link to={'/Login-Admin'}>
                   <Button
-                    id = {'login'}
+                    id = {'signup'}
                     className={'btn button1 contact-font'}
-                    label = {'Log in'}
+                    label = {'Sign up'}
                     style={{ width: "100%", textAlign: "center" }}
-                    onClick={onLogin}
+                    type="submit"
+                    onClick={onsubmit}
                   />
+                </Link>
                 </div>
               </form>
-              <div
-                  className="footer-font text-left ps-5 pb-3"
-                  style={{ fontSize: 20 }}
-                >
-                Dont have any account? 
-                    <Link to={'/Sign-Up'}>
-                      Sign Up
-                    </Link>
-                </div>
             </div>
           </div>
         </section>
@@ -102,4 +113,4 @@ const LoginAdmin = () => {
       <img src="src/assets/login.png" alt="login" className="login-pic login-bg" />
     </>
   )}
-export default LoginAdmin
+export default SignUp

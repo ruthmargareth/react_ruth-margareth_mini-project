@@ -16,6 +16,7 @@ import GroomingHistoryDetail from './pages/admin/jsx/GroomingHistoryDetail.jsx'
 import HotelHistoryDetail from './pages/admin/jsx/HotelHistoryDetail.jsx'
 import GroomingInfo from './pages/admin/jsx/GroomingInfo.jsx'
 import HotelInfo from './pages/admin/jsx/HotelInfo.jsx'
+import SignUp from './pages/admin/jsx/SignUp.jsx'
 import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
 import HotelReducer from './HotelReducer.js'
@@ -48,6 +49,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path ="Grooming-History-Detail/:id"  element ={<GroomingHistoryDetail />} />
         <Route path ="Grooming-Info/:id" element = {<GroomingInfo/>} />
         <Route path ="Hotel-Info/:id" element = {<HotelInfo/>} />
+        <Route path ="Sign-Up" element = {<SignUp/>} />
       </Routes>
     </BrowserRouter>
     </Provider>
