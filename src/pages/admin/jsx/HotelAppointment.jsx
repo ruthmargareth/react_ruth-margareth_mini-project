@@ -10,8 +10,30 @@ import { addHotel } from '../../../HotelReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import {v4 as uuid} from 'uuid'
 import { useNavigate } from 'react-router-dom'
+import { gql, useMutation } from '@apollo/client'
+import { getHotelHistory } from './HotelHistory'
+
+const ADD_HOTEL = gql`
+  mutation MyQuery ($object: Hotel_insert_input!)  {
+    insert_Hotel_one(object: $object){
+      id
+      ownerName
+      ownerPhone
+      petName
+      species
+      breed
+      gender
+      weight
+      booking
+      pickup
+    }
+  }
+`
 
 const HotelAppointment = () => {
+  const [insertHotel] = useMutation (ADD_HOTEL, {
+    refetchQueries: [getHotelHistory]
+  })
 
   const [ownerName, setOwnerName] = useState('')
   const [ownerPhone, setOwnerPhone] = useState('')
@@ -41,6 +63,21 @@ const HotelAppointment = () => {
       booking,
       pickup
     }))
+    insertHotel({
+      variables: {
+        object: {
+          id: uuid(), 
+          ownerName: ownerName,
+          ownerPhone: ownerPhone,
+          petName: petName,
+          species: species,
+          breed: breed,
+          gender: gender,
+          weight: weight,
+          booking: booking,
+          pickup: pickup
+        }
+      }})
     navigate('/Hotel-History')
   }
 
@@ -154,35 +191,17 @@ const HotelAppointment = () => {
                     />
                   </div>
                   <div className="col-75">
-                    <div className="form-check form-check-inline w-25">
-                      <Input
-                        id = {'male'}
-                        name = {'gender'}
-                        type = {'radio'}
-                        className={'form-check-input'}
-                        // defaultValue={'Male'}
-                        value = {'Male'}
+                    <div className="dropdown dropdown-input">
+                      <select 
+                        className="form-select appointment-font"
                         onChange={(e) => setGender(e.target.value)}
-                      />
-                      <Label
-                        htmlFor = {'male'}
-                        label = {"Male"}
-                      />
-                    </div>
-                    <div className="form-check form-check-inline">
-                      <Input
-                        id = {'female'}
-                        name = {'gender'}
-                        type = {'radio'}
-                        className={'form-check-input'}
-                        // defaultValue={'Female'}
-                        value = {'Female'}
-                        onChange={(e) => setGender(e.target.value)}
-                      />
-                      <Label
-                        htmlFor = {'female'}
-                        label = {"Female"}
-                      />
+                      >
+                        <option selected="" disabled="" value="">
+                          Choose pet's gender...
+                        </option>
+                        <option>Male</option>
+                        <option>Female</option>
+                      </select>
                     </div>
                   </div>
                 </div>

@@ -32,9 +32,9 @@ layout:
 technology: 
 - react-router-dom
 - uuid
-- react-redux
-- @reduxjs/toolkit
+- react-redux, @reduxjs/toolkit
 - bootstrap , bootstrap icon
+- graphql, @apollo/client
 
 TODO: 
 1. buat design ✅
