@@ -3,38 +3,53 @@ import NavbarAdmin from '../../../layout/jsx/NavbarAdmin'
 import SidebarHotel from '../../../layout/jsx/SidebarHotel'
 import FooterAdmin from '../../../layout/jsx/FooterAdmin'
 import Label from '../../../component/Label'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { gql, useMutation, useQuery } from '@apollo/client'
+import { getHotelHistory } from './HotelHistory'
 
 const HotelInfo = () => {
+    const {data, loading, error} = useQuery(getHotelHistory)
+    const [hotelInfo, setInfo] = useState([])
 
-    const {id} = useParams();
-    const hotel = useSelector((state) => state.hotel)
-    const existingHotel = hotel.filter(f => f.id == id);
-    const {
-      ownerName,
-      ownerPhone,
-      petName,
-      species,
-      breed,
-      gender,
-      weight,
-      booking,
-      pickup
-    } = existingHotel[0];
+    // const {id} = useParams();
+    // const hotel = useSelector((state) => state.hotel)
+    // const existingHotel = hotel.filter(f => f.id == id);
+    // const {
+    //   ownerName,
+    //   ownerPhone,
+    //   petName,
+    //   species,
+    //   breed,
+    //   gender,
+    //   weight,
+    //   booking,
+    //   pickup
+    // } = existingHotel[0];
 
-    const [uownerName, setOwnerName] = useState(ownerName)
-    const [uownerPhone, setOwnerPhone] = useState(ownerPhone)
-    const [upetName, setPetName] = useState(petName)
-    const [uspecies, setSpecies] = useState(species)
-    const [ubreed, setBreed] = useState(breed)
-    const [ugender, setGender] = useState(gender)
-    const [uweight, setWeight] = useState(weight)
-    const [ubooking, setBooking] = useState(booking)
-    const [upickup, setPickup] = useState(pickup)
+    // const [uownerName, setOwnerName] = useState(ownerName)
+    // const [uownerPhone, setOwnerPhone] = useState(ownerPhone)
+    // const [upetName, setPetName] = useState(petName)
+    // const [uspecies, setSpecies] = useState(species)
+    // const [ubreed, setBreed] = useState(breed)
+    // const [ugender, setGender] = useState(gender)
+    // const [uweight, setWeight] = useState(weight)
+    // const [ubooking, setBooking] = useState(booking)
+    // const [upickup, setPickup] = useState(pickup)
   
-  
+    useEffect(() => {
+        console.log ('loading: ', loading);
+        console.log ('data gql: ', data);
+        console.log('error: ', error);
+      })
+
+      //check if data is still fetching
+    if (!loading && error !== undefined){
+    //set "hotel" response to state "Hotel"
+    setInfo(data.Hotel)
+    }
+
 
   return (
     <>
@@ -50,6 +65,8 @@ const HotelInfo = () => {
               <p className="content-title">Hotel History Information</p>
             </div>
 
+            {
+                data?.Hotel.map(item =>
             <form>
                 <div className="px-5 pb-5 appointment-font" >
                     <div className="row pb-3 ps-5">
@@ -68,7 +85,7 @@ const HotelInfo = () => {
                         <div className="col-50">
                             <Label
                             htmlFor = {'ownerName'}
-                            label = {uownerName}
+                            label = {item.ownerName}
                             />
                         </div>
                     </div>
@@ -89,7 +106,7 @@ const HotelInfo = () => {
                         <div className="col-50">
                             <Label
                             htmlFor = {'ownerPhone'}
-                            label = {uownerPhone}
+                            label = {item.ownerPhone}
                             />
                         </div>
                     </div>
@@ -110,7 +127,7 @@ const HotelInfo = () => {
                         <div className="col-50">
                             <Label
                             htmlFor = {'petName'}
-                            label = {upetName}
+                            label = {item.petName}
                             />
                         </div>
                     </div>
@@ -131,7 +148,7 @@ const HotelInfo = () => {
                         <div className="col-50">
                             <Label
                             htmlFor = {'species'}
-                            label = {uspecies}
+                            label = {item.species}
                             />
                         </div>
                     </div>
@@ -152,7 +169,7 @@ const HotelInfo = () => {
                         <div className="col-50">
                             <Label
                             htmlFor = {'breed'}
-                            label = {ubreed}
+                            label = {item.breed}
                             />
                         </div>
                     </div>
@@ -173,7 +190,7 @@ const HotelInfo = () => {
                         <div className="col-50">
                             <Label
                             htmlFor = {'gender'}
-                            label = {ugender}
+                            label = {item.gender}
                             />
                         </div>
                     </div>
@@ -194,7 +211,7 @@ const HotelInfo = () => {
                         <div className="col-50">
                             <Label
                             htmlFor = {'weight'}
-                            label = {uweight}
+                            label = {item.weight}
                             />
                         </div>
                     </div>
@@ -215,7 +232,7 @@ const HotelInfo = () => {
                         <div className="col-50">
                             <Label
                             htmlFor = {'booking'}
-                            label = {ubooking}
+                            label = {item.booking}
                             />
                         </div>
                     </div>
@@ -236,13 +253,15 @@ const HotelInfo = () => {
                         <div className="col-50">
                             <Label
                             htmlFor = {'pickup'}
-                            label = {upickup}
+                            label = {item.pickup}
                             />
                         </div>
                     </div>
                 </div>
                 
             </form>
+            )
+        }
           </div>
         </div>
       </div>

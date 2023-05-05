@@ -3,20 +3,71 @@ import NavbarAdmin from '../../../layout/jsx/NavbarAdmin'
 import SidebarHotel from '../../../layout/jsx/SidebarHotel'
 import FooterAdmin from '../../../layout/jsx/FooterAdmin'
 import Button from '../../../component/Button'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteHotel } from '../../../HotelReducer'
-// import HotelModal from './HotelModal'
+import { gql, useMutation, useQuery } from '@apollo/client'
+//import HotelModal from './HotelModal'
+
+export const getHotelHistory = gql`
+query MyQuery {
+  Hotel {
+    id
+    ownerName
+    ownerPhone
+    petName
+    species
+    breed
+    gender
+    weight
+    booking
+    pickup
+  }
+}
+`
+const REMOVE_HOTEL = gql`
+  mutation MyQuery ($id: String!)  {
+    delete_Hotel_by_pk(id: $id){
+      id
+    }
+  }
+`
 
 
 const HotelHistory = () => {
+  const {data, loading, error} = useQuery(getHotelHistory)
+  const [HotelAppointment, setHotel] = useState([])
+
+  const [removeHotel] = useMutation(REMOVE_HOTEL, {
+    refetchQueries: [getHotelHistory]
+  })
+
+
+  useEffect(() => {
+    console.log ('loading: ', loading);
+    console.log ('data gql: ', data);
+    console.log('error: ', error);
+  })
+
+  //check if data is still fetching
+  if (!loading && error !== undefined){
+    //set "hotel" response to state "Hotel"
+    setHotel(data.Hotel)
+  }
 
   const hotel = useSelector((state) => state.hotel)
   const dispatch = useDispatch()
 
   const handleDelete = (id) => {
-    dispatch(deleteHotel({id: id}))
+    dispatch(deleteHotel({
+      id: id
+    }))
+    removeHotel({
+      variables: { 
+        id: id
+      }
+    })
   }
 
   return (
@@ -35,30 +86,31 @@ const HotelHistory = () => {
             <div className="row row-cols-1 row-cols-md-3 g-4 pb-5">
 
             {
-              hotel && hotel.length > 0
-              ?
-              hotel.map((hotel, index) =>(
+              loading ? 
+                <h3 style={{ color: "#4054BB" }}>No Data History Available</h3>
+                :
+                data?.Hotel.map(item =>
                 <div className="col">
                 <div className="card h-90 card-bg">
-                  <div className="card-body" key ={index}>
+                  <div className="card-body">
                   <div className="container">
                     <div className="row">
                     <div className="col-10">
-                      <h5 className="card-title card-font">{hotel.petName}</h5>
+                      <h5 className="card-title card-font">{item.petName}</h5>
                     </div>
                     <div className="col-2">
-                    <Link to={`/Hotel-Info/${hotel.id}`}>
+                    <Link to={`/Hotel-Info/${item.id}`}>
                       <i className="bi bi-info-circle card-title card-font"></i>
                     </Link>
                     </div>
                     </div>
                   </div>
-                    <p className="card-text card-font">species: <span>{hotel.species}</span></p>
-                    <p className="card-text card-font">breed: <span>{hotel.breed}</span></p>
-                    <p className="card-text card-font">pickup date: <span>{hotel.pickup}</span></p>
+                    <p className="card-text card-font">species: <span>{item.species}</span></p>
+                    <p className="card-text card-font">breed: <span>{item.breed}</span></p>
+                    <p className="card-text card-font">pickup date: <span>{item.pickup}</span></p>
                     <div className="row">
                       <div className="col-6">
-                        <Link to={`/Hotel-History-Detail/${hotel.id}`}>
+                        <Link to={`/Hotel-History-Detail/${item.id}`}>
                           <Button
                             id = {'editbtn'}
                             className = {'btn button2 body-font'}
@@ -73,12 +125,19 @@ const HotelHistory = () => {
                         type={"button"}
                         className={"btn button1 body-font"}
                         style={{ width: 150, textAlign: "center" }}
-                        onClick={() => handleDelete(hotel.id)}
+                        onClick={() => handleDelete(item.id)}
                         toggle={"modal"}
                         target={"#staticBackdrop"}
                         label = {"Delete"}
                       />
 
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+                )
+            }
                       {/* modal */}
                       {/* <HotelModal/> */}
                       {/* <div
@@ -120,15 +179,15 @@ const HotelHistory = () => {
                                       pickup date
                                     </div>
                                   </div>
-                                  <div className="row my-2" key={index}>
+                                  <div className="row my-2">
                                     <div className="col">
-                                      {hotel.petName}
+                                      {item.petName}
                                     </div>
                                     <div className="col">
-                                      {hotel.breed}
+                                      {item.breed}
                                     </div>
                                     <div className="col">
-                                      {hotel.pickup}
+                                      {item.pickup}
                                     </div>
                                   </div> */}
                                   {/* button */}
@@ -159,17 +218,6 @@ const HotelHistory = () => {
                           </div>
                         </div>
                       </div> */}
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            ))
-            :
-              <h3 style={{ color: "#4054BB" }}>No Data History Available</h3>
-            }
-
             </div>
           </div>
         </div>

@@ -9,6 +9,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import React, { useState } from 'react'
 import { updateGrooming } from '../../../GroomingReducer'
+import { gql, useMutation, useQuery } from '@apollo/client'
+import { getGroomingHistory } from './GroomingHistory'
 
 const GroomingHistoryDetail = () => {
   
@@ -176,35 +178,18 @@ const GroomingHistoryDetail = () => {
                     />
                   </div>
                   <div className="col-75">
-                    <div className="form-check form-check-inline w-25">
-                      <Input
-                        id = {'male'}
-                        name = {'gender'}
-                        type = {'radio'}
-                        className={'form-check-input'}
-                        defaultValue={'Male'}
+                    <div className="dropdown dropdown-input">
+                      <select 
+                        className="form-select appointment-font"
                         value = {ugender}
                         onChange={(e) => setGender(e.target.value)}
-                      />
-                      <Label
-                        htmlFor = {'male'}
-                        label = {"Male"}
-                      />
-                    </div>
-                    <div className="form-check form-check-inline">
-                      <Input
-                        id = {'female'}
-                        name = {'gender'}
-                        type = {'radio'}
-                        className={'form-check-input'}
-                        defaultValue={'Female'}
-                        value = {ugender}
-                        onChange={(e) => setGender(e.target.value)}
-                      />
-                      <Label
-                        htmlFor = {'female'}
-                        label = {"Female"}
-                      />
+                      >
+                        <option selected="" disabled="" value="">
+                          Choose pet's gender...
+                        </option>
+                        <option>Male</option>
+                        <option>Female</option>
+                      </select>
                     </div>
                   </div>
                 </div>

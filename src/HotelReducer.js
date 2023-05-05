@@ -3,7 +3,7 @@ import { HotelList } from "./pages/admin/jsx/HotelList";
 
 const hotelSlice = createSlice ({
     name: "hotel",
-    initialState: HotelList,
+    initialState: [],
     reducers: {
         addHotel: (state, action) => {
             state.push(action.payload)

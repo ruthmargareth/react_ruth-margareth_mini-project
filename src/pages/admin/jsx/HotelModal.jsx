@@ -3,8 +3,32 @@ import Button from '../../../component/Button'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteHotel } from '../../../HotelReducer'
 import { useNavigate } from 'react-router-dom'
+import { gql, useMutation, useQuery } from '@apollo/client'
+import { getHotelHistory } from './HotelHistory'
+import { useState } from 'react'
+
+const REMOVE_HOTEL = gql`
+  mutation MyQuery ($id: String!)  {
+    delete_Hotel_by_pk(id: $id){
+      id
+    }
+  }
+`
 
 const HotelModal = () => {
+    const {data, loading, error} = useQuery(getHotelHistory)
+    const [hotelModal, setModal] = useState([])
+
+    //check if data is still fetching
+        if (!loading && error !== undefined){
+    //set "hotel" response to state "Hotel"
+        setModal(data.Hotel)
+    }
+
+    const [removeHotel] = useMutation(REMOVE_HOTEL, {
+        refetchQueries: [getHotelHistory]
+      })
+
 
     const hotel = useSelector((state) => state.hotel)
 
@@ -12,8 +36,16 @@ const HotelModal = () => {
     const navigate = useNavigate()
 
     const handleDelete = (id) => {
-        dispatch(deleteHotel({id: id}))
-      }
+        dispatch(deleteHotel({
+            id: id
+          }))
+          removeHotel({
+            variables: { 
+              id: id
+            }
+          })
+        }
+      
      
     return (
         <>
@@ -31,7 +63,8 @@ const HotelModal = () => {
                         <div className="modal-body">
 
 
-                            {hotel.map((hotel,index) => (
+                            {
+                            data?.Hotel.map(item =>
                                 <div className="container">
                                 {/* title */}
                                 <div className="modal-title font">
@@ -63,13 +96,13 @@ const HotelModal = () => {
 
                                     <div className="row my-2">
                                         <div className="col">
-                                            {hotel.petName}
+                                            {item.petName}
                                         </div>
                                         <div className="col">
-                                            {hotel.breed}
+                                            {item.breed}
                                         </div>
                                         <div className="col">
-                                            {hotel.pickup}
+                                            {item.pickup}
                                         </div>
                                     </div>
 
@@ -97,7 +130,7 @@ const HotelModal = () => {
                                     </div>
                                 </div>
                             </div>
-                            ))}
+                            )}
                         </div>
                     </div>
                 </div>

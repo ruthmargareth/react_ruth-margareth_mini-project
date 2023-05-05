@@ -3,19 +3,69 @@ import NavbarAdmin from '../../../layout/jsx/NavbarAdmin'
 import SidebarGrooming from '../../../layout/jsx/SidebarGrooming'
 import FooterAdmin from '../../../layout/jsx/FooterAdmin'
 import Button from '../../../component/Button'
-import React from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteGrooming } from '../../../GroomingReducer'
+import { gql, useMutation, useQuery } from '@apollo/client'
+
+export const getGroomingHistory = gql`
+query MyQuery {
+  Grooming {
+    id
+    ownerName
+    ownerPhone
+    petName
+    species
+    breed
+    gender
+    weight
+    packet
+    date
+    time
+  }
+}
+`
+const REMOVE_GROOMING = gql`
+  mutation MyQuery ($id: String!)  {
+    delete_Grooming_by_pk(id: $id){
+      id
+    }
+  }
+`
 
 const GroomingHistory = () => {
-  const navigate = useNavigate()
+  const {data, loading, error} = useQuery(getGroomingHistory)
+  const [groomingAppointment, setGrooming] = useState([])
 
+  const [removeGrooming] = useMutation(REMOVE_GROOMING, {
+    refetchQueries: [getGroomingHistory]
+  })
+
+  useEffect(() => {
+    console.log ('loading: ', loading);
+    console.log ('data gql: ', data);
+    console.log('error: ', error);
+  })
+  
+  //check if data is still fetching
+  if (!loading && error !== undefined){
+    //set "grooming" response to state "Grooming"
+    setGrooming(data.Grooming)
+  }
+  
   const grooming = useSelector((state) => state.grooming)
   const dispatch = useDispatch()
 
   const handleDelete = (id) => {
-    dispatch(deleteGrooming({id: id}))
+    dispatch(deleteGrooming({
+      id: id
+    }))
+    removeGrooming({
+      variables: { 
+        id: id
+      }
+    })
   }
 
   return (
@@ -34,30 +84,31 @@ const GroomingHistory = () => {
             <div className="row row-cols-1 row-cols-md-3 g-4 pb-5">
 
             {
-              grooming && grooming.length > 0
-              ?
-              grooming.map((grooming, index) => (
+              loading ? 
+                <h3 style={{ color: "#4054BB" }}>No Data History Available</h3>
+                :
+                data?.Grooming.map(item =>
                 <div className="col">
                 <div className="card h-90 card-bg">
-                  <div className="card-body" key ={index}>
+                  <div className="card-body">
                   <div className="container">
                     <div className="row">
                     <div className="col-10">
-                      <h5 className="card-title card-font">{grooming.petName}</h5>
+                      <h5 className="card-title card-font">{item.petName}</h5>
                     </div>
                     <div className="col-2">
-                    <Link to={`/Grooming-Info/${grooming.id}`}>
+                    <Link to={`/Grooming-Info/${item.id}`}>
                       <i className="bi bi-info-circle card-title card-font"></i>
                     </Link>
                     </div>
                     </div>
                   </div>
-                    <p className="card-text card-font">species: <span>{grooming.species}</span></p>
-                    <p className="card-text card-font">breed: <span>{grooming.breed}</span></p>
-                    <p className="card-text card-font">packet: <span>{grooming.packet}</span></p>
+                    <p className="card-text card-font">species: <span>{item.species}</span></p>
+                    <p className="card-text card-font">breed: <span>{item.breed}</span></p>
+                    <p className="card-text card-font">packet: <span>{item.packet}</span></p>
                     <div className="row">
                       <div className="col-6">
-                        <Link to={`/Grooming-History-Detail/${grooming.id}`}>
+                        <Link to={`/Grooming-History-Detail/${item.id}`}>
                           <Button
                             id = {'editbtn'}
                             className = {'btn button2 body-font'}
@@ -72,18 +123,15 @@ const GroomingHistory = () => {
                           label = {'Delete'}
                           className = {'btn button1 body-font'}
                           style={{ width: 150, textAlign: "center" }}
-                          onClick={() => handleDelete(grooming.id)}
+                          onClick={() => handleDelete(item.id)}
                         />
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              ))
-              :
-              <h3 style={{ color: "#4054BB" }}>No Data History Available</h3>
-            }
-
+               )
+              }
             </div>
           </div>
         </div>

@@ -9,9 +9,43 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import React, { useState } from 'react'
 import { updateHotel } from '../../../HotelReducer'
+import { gql, useMutation, useQuery } from '@apollo/client'
+import { getHotelHistory } from './HotelHistory'
+
+// const UPDATE_HOTEL = gql`
+//   mutation MyQuery (
+//     $id: String!,
+//     $ownerName: String!,
+//     $ownerPhone: String!,
+//     $petName: String!,
+//     $species: String!,
+//     $breed: String!,
+//     $gender: String!,
+//     $weight: String!,
+//     $booking: String!,
+//     $pickup: String!
+//     ) {
+//     update_Hotel_by_pk(
+//       pk_columns: { id: $id }
+//       _set: {
+//         ownerName: $ownerName,
+//         ownerPhone: $ownerPhone,
+//         petName: $petName,
+//         species: $species,
+//         breed: $breed,
+//         gender: $gender,
+//         weight: $weight,
+//         booking: $booking,
+//         pickup: $pickup,
+//       }
+//     ) {
+//       id
+//     }
+//   }
+// `
 
 const HotelHistoryDetail = () => {
-  
+
   const {id} = useParams();
   const hotel = useSelector((state) => state.hotel)
   const existingHotel = hotel.filter(f => f.id == id);
@@ -37,6 +71,19 @@ const HotelHistoryDetail = () => {
   const [ubooking, setBooking] = useState(booking)
   const [upickup, setPickup] = useState(pickup)
 
+  // const {data, loading, error} = useQuery(getHotelHistory)
+  // const [update, setUpdate] = useState([])
+
+  // const [updateAppointment] = useMutation(UPDATE_HOTEL, {
+  //   refetchQueries: [getHotelHistory]
+  // })
+
+    // //check if data is still fetching
+    // if (!loading && error !== undefined){
+    //   //set "hotel" response to state "Hotel"
+    //   setUpdate(data.Hotel)
+    // }
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -44,7 +91,7 @@ const HotelHistoryDetail = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
     dispatch(updateHotel({
-      id:id,
+      id: id,
       ownerName: uownerName,
       ownerPhone: uownerPhone,
       petName: upetName,
@@ -55,6 +102,21 @@ const HotelHistoryDetail = () => {
       booking: ubooking,
       pickup: upickup
     }))
+    // const item = data?.Hotel.find((v) => v.id === id)
+    // updateAppointment({
+    //   variables: {
+    //     id: id, 
+    //     ownerName: !item.ownerName,
+    //     ownerPhone: !item.ownerPhone,
+    //     petName: !item.petName,
+    //     species: !item.species,
+    //     breed: !item.breed,
+    //     gender: !item.gender,
+    //     weight: !item.weight,
+    //     booking: !item.booking,
+    //     pickup: !item.pickup
+    //     }
+    // })
     navigate ('/Hotel-History')
   }
 
@@ -72,6 +134,8 @@ const HotelHistoryDetail = () => {
             <div className="content-font px-5 py-5">
               <p className="content-title">Hotel History Update</p>
             </div>
+            {/* {
+              data?.Hotel.map(item => */}
             <form onSubmit={handleUpdate}>
               <div className="px-5 pb-5 appointment-font">
                 <div className="row pb-3">
@@ -173,35 +237,18 @@ const HotelHistoryDetail = () => {
                     />
                   </div>
                   <div className="col-75">
-                    <div className="form-check form-check-inline w-25">
-                      <Input
-                        id = {'male'}
-                        name = {'gender'}
-                        type = {'radio'}
-                        className={'form-check-input'}
-                        defaultValue={ugender}
-                        // value = {ugender}
+                    <div className="dropdown dropdown-input">
+                      <select 
+                        className="form-select appointment-font"
+                        value = {ugender}
                         onChange={(e) => setGender(e.target.value)}
-                      />
-                      <Label
-                        htmlFor = {'male'}
-                        label = {"Male"}
-                      />
-                    </div>
-                    <div className="form-check form-check-inline">
-                      <Input
-                        id = {'female'}
-                        name = {'gender'}
-                        type = {'radio'}
-                        className={'form-check-input'}
-                        defaultValue={ugender}
-                        // value = {ugender}
-                        onChange={(e) => setGender(e.target.value)}
-                      />
-                      <Label
-                        htmlFor = {'female'}
-                        label = {"Female"}
-                      />
+                      >
+                        <option selected="" disabled="" value="">
+                          Choose pet's gender...
+                        </option>
+                        <option>Male</option>
+                        <option>Female</option>
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -272,10 +319,11 @@ const HotelHistoryDetail = () => {
                   className={'btn button1 contact-font mt-3'}
                   label = {'Update Booking'}
                   style={{ width: "100%", textAlign: "center" }}
-                  // onClick={}
                 />
               </div>
             </form>
+            {/* )
+          } */}
           </div>
         </div>
       </div>

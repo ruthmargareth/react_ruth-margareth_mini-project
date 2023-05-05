@@ -10,8 +10,31 @@ import { addGrooming } from '../../../GroomingReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import {v4 as uuid} from 'uuid'
 import { useNavigate } from 'react-router-dom'
+import { gql, useMutation } from '@apollo/client'
+import { getGroomingHistory } from './GroomingHistory'
+
+const ADD_GROOMING = gql`
+  mutation MyQuery ($object: Grooming_insert_input!)  {
+    insert_Grooming_one(object: $object){
+      id
+      ownerName
+      ownerPhone
+      petName
+      species
+      breed
+      gender
+      weight
+      packet
+      date
+      time
+    }
+  }
+`
 
 const GroomingAppointment = () => {
+  const [insertGrooming] = useMutation (ADD_GROOMING, {
+    refetchQueries: [getGroomingHistory]
+  })
 
   const [ownerName, setOwnerName] = useState('')
   const [ownerPhone, setOwnerPhone] = useState('')
@@ -43,6 +66,22 @@ const GroomingAppointment = () => {
       date,
       time
     }))
+    insertGrooming({
+      variables: {
+        object: {
+          id: uuid(), 
+          ownerName: ownerName,
+          ownerPhone: ownerPhone,
+          petName: petName,
+          species: species,
+          breed: breed,
+          gender: gender,
+          weight: weight,
+          packet: packet,
+          date: date,
+          time: time
+        }
+      }})
     navigate('/Grooming-History')
   }
 
@@ -156,35 +195,17 @@ const GroomingAppointment = () => {
                     />
                   </div>
                   <div className="col-75">
-                    <div className="form-check form-check-inline w-25">
-                      <Input
-                        id = {'male'}
-                        name = {'gender'}
-                        type = {'radio'}
-                        className={'form-check-input'}
-                        // defaultValue={'Male'}
-                        value = {'Male'}
+                    <div className="dropdown dropdown-input">
+                      <select 
+                        className="form-select appointment-font"
                         onChange={(e) => setGender(e.target.value)}
-                      />
-                      <Label
-                        htmlFor = {'male'}
-                        label = {"Male"}
-                      />
-                    </div>
-                    <div className="form-check form-check-inline">
-                      <Input
-                        id = {'female'}
-                        name = {'gender'}
-                        type = {'radio'}
-                        className={'form-check-input'}
-                        // defaultValue={'Female'}
-                        value = {'Female'}
-                        onChange={(e) => setGender(e.target.value)}
-                      />
-                      <Label
-                        htmlFor = {'female'}
-                        label = {"Female"}
-                      />
+                      >
+                        <option selected="" disabled="" value="">
+                          Choose pet's gender...
+                        </option>
+                        <option>Male</option>
+                        <option>Female</option>
+                      </select>
                     </div>
                   </div>
                 </div>
