@@ -88,19 +88,24 @@ const GroomingAppointment = () => {
   return (
     <>
     <NavbarAdmin/>
+
     {/* sidebar */}
     <div className="container-fluid">
       <div className="row">
+
         <SidebarGrooming/>
         {/* content */}
+
         <div className="col-9">
           <div className="content">
+
             <div className="content-font px-5 py-5">
               <p className="content-title">Grooming Appointment</p>
             </div>
 
             <form onSubmit={handleSubmit}>
               <div className="px-5 pb-5 appointment-font">
+                
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -117,6 +122,7 @@ const GroomingAppointment = () => {
                     />
                   </div>
                 </div>
+
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -133,6 +139,7 @@ const GroomingAppointment = () => {
                     />
                   </div>
                 </div>
+
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -149,6 +156,7 @@ const GroomingAppointment = () => {
                     />
                   </div>
                 </div>
+
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -171,6 +179,7 @@ const GroomingAppointment = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -187,6 +196,7 @@ const GroomingAppointment = () => {
                     />
                   </div>
                 </div>
+
                 <div className="row pb-3">
                  <div className="col-25">
                   <Label
@@ -209,6 +219,7 @@ const GroomingAppointment = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -234,6 +245,7 @@ const GroomingAppointment = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -258,6 +270,7 @@ const GroomingAppointment = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -275,6 +288,7 @@ const GroomingAppointment = () => {
                     />
                   </div>
                 </div>
+
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -292,20 +306,23 @@ const GroomingAppointment = () => {
                     />
                   </div>
                 </div>
+
                   <Button
                     id = {'submitGrooming'}
                     className={'btn button1 contact-font mt-3'}
                     label = {'Booking Appointment'}
                     style={{ width: "100%", textAlign: "center" }}
                   />
+
               </div>
             </form>
 
           </div>
         </div>
+        
       </div>
     </div>
-    <FooterAdmin/>
+  <FooterAdmin/>
   </>
 )}
 export default GroomingAppointment

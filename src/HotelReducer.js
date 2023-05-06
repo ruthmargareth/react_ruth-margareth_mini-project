@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { HotelList } from "./pages/admin/jsx/HotelList";
 
 const hotelSlice = createSlice ({
     name: "hotel",

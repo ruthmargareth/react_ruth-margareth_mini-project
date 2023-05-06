@@ -30,32 +30,51 @@ const LandingPageAdmin = () => {
   return (
     <>
     <NavbarAdmin/>
+    
     {/* welcome */}
     <section className="body">
       <div className="container-fluid">
         <div className="row">
+
           <div className="col-6">
             <div className="body-font pt-5 px-5">
+
               <p className="body-title">
-                TAKE <span style={{ color: "#FAC75C" }}>CARE</span> OF YOUR LOVELY{" "}
-                <span style={{ color: "#FAC75C" }}>PET</span>
+                <span style={{ color: "#FAC75C" }}>WELCOME TO</span> ADMIN HOMEPAGE
               </p>
+
               <p>
-                hotel, grooming, and the facilities that we have worth for your
-                pet
+                let's start make an appointment for our customer's pet
               </p>
-              <Button
-                id = {'exploreFacilitiesbtn'}
-                className = {'btn button1 body-font'}
-                label = {'Explore facilities'}
-                style={{ width: 250, textAlign: "center" }}
-                onClick={() => navigate('/Grooming-Facilities-Admin')}
-              />
+
+              <div className="row">
+                <div className="col">
+                  <Button
+                    id = {'groomingbtn'}
+                    className = {'btn button1 body-font'}
+                    label = {'Grooming'}
+                    style={{ width: 250, textAlign: "center" }}
+                    onClick={() => navigate('/Grooming-Appointment')}
+                  />
+                </div>
+                <div className="col">
+                  <Button
+                    id = {'hotelbtn'}
+                    className = {'btn button1 body-font'}
+                    label = {'Hotel'}
+                    style={{ width: 250, textAlign: "center" }}
+                    onClick={() => navigate('/Hotel-Appointment')}
+                  />
+                </div>
+              </div>
+
             </div>
           </div>
+
           <div className="col-6">
             <img src="src/assets/catdog.png" alt="catdog" />
           </div>
+
         </div>
       </div>
     </section>
@@ -64,9 +83,11 @@ const LandingPageAdmin = () => {
     <section className="facilities">
       <div className="container-fluid">
         <div className="row">
+
           <div className="col-9">
             <img src="src/assets/hotel.png" alt="hotel" width="100%" />
           </div>
+
           <div className="col-3">
             <div className="px-5 py-5">
               <p className="facilities-font">
@@ -83,12 +104,15 @@ const LandingPageAdmin = () => {
               />
             </div>
           </div>
+
         </div>
       </div>
     </section>
+
     <section className="facilities">
       <div className="container-fluid">
         <div className="row">
+
           <div className="col-3">
             <div className="px-5 py-5">
               <p className="facilities-font">Grooming Facilities</p>
@@ -101,9 +125,11 @@ const LandingPageAdmin = () => {
               />
             </div>
           </div>
+
           <div className="col-9">
             <img src="src/assets/grooming.png" alt="grooming" width="100%" />
           </div>
+
         </div>
       </div>
     </section>
@@ -112,15 +138,16 @@ const LandingPageAdmin = () => {
     <section className="contact">
       <div className="container-fluid">
         <div className="row">
+
           <div className="col-5 ps-5 pt-3">
             <img src="src/assets/cat.png" alt="cat" width={600} />
           </div>
+
           <div className="col-7">
             <div className="contact-font px-5">
               <p className="contact-title">Contact us</p>
-              {/* form */}
-              <form onSubmit={handleSubmit}>
 
+              <form onSubmit={handleSubmit}>
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -196,6 +223,7 @@ const LandingPageAdmin = () => {
                   >
                     <div className="modal-dialog">
                       <div className="modal-content">
+
                         <div className="modal-header">
                           <h5 className="modal-font modal-title" id="exampleModalLabel">
                             Notification Success
@@ -221,11 +249,13 @@ const LandingPageAdmin = () => {
                       </div>
                     </div>
                   </div>
-                </div>
 
+                </div>
               </form>
+
             </div>
           </div>
+
         </div>
       </div>
     </section>

@@ -10,9 +10,9 @@ const NavbarUser = () => {
         <nav className="navbar navbar-expand-lg navbar-shadow navbar-bg pt-4">
             <div className="container-fluid">
                 <img src="src/assets/woofgang.png" className="logo" alt="woofgang" />
-                <a className="navbar-brand navbar-font navbar-title" href="#">
+                <Link to="/" className="navbar-brand navbar-font navbar-title">
                     WOOFGANG
-                </a>
+                </Link>
                 <div
                     className="collapse navbar-collapse justify-content-center"
                     id="navbarNav"
@@ -23,21 +23,25 @@ const NavbarUser = () => {
                                     Home
                             </Link>
                         </li>
+
                         <li className="nav-item mx-4">
                             <Link to ='/Grooming-Facilities' className="nav-link navbar-font navbar-content" aria-current="page">
                                 Grooming facilities
                             </Link>
                         </li>
+
                         <li className="nav-item mx-4">
                             <Link to ='/Hotel-Facilities' className="nav-link navbar-font navbar-content" aria-current="page">
                                 Hotel facilities
                             </Link>
                         </li>
+
                         <li className="nav-item mx-4">
                             <Link to ='#' className="nav-link navbar-font navbar-content" aria-current="page">
                                 Contact us
                             </Link>
                         </li>
+                        
                     </ul>
                 </div>
                 {/* login */}

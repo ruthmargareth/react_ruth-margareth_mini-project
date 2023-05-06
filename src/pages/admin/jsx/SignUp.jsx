@@ -4,29 +4,33 @@ import Button from '../../../component/Button'
 import Label from '../../../component/Label'
 import Input from '../../../component/Input'
 import { useState } from 'react'
-import { getAuth, signInWithEmailAndPassword } from '@firebase/auth'
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
+import { app } from '../../../firebaseConfig'
 
-const LoginAdmin = () => {
+const SignUp = () => {
   const navigate = useNavigate()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  
+  //get auth function from firebase
+  const auth = getAuth(app)
 
-  const auth = getAuth()
+  const onSubmit = async (e) => {
+    e.preventDefault()
 
-  const onLogin = (e) => {
-    e.preventDefault();
-
-    //send email and password to sign in method firebase
-    signInWithEmailAndPassword(auth, email, password)
+    //send email & password to firebase sign up auth service 
+    createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
-      console.log('login berhasil', user);
-      navigate('/Landing-Page-Admin')
+      console.log('signed in: ', user);
+      navigate('/Login-Admin')
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      console.log('error: ', errorCode + 'message: ', errorMessage);
     });
   }
 
@@ -37,9 +41,9 @@ const LoginAdmin = () => {
         <div className="row align-items-start pt-4">
           <div className="col ps-3p">
             <img src="src/assets/woofgang.png" className="logo" alt="woofgang" />
-            <Link to= "/" className="login-font">
+            <a className="login-font" href="#">
               WOOFGANG
-            </Link>
+            </a>
           </div>
         </div>
 
@@ -48,17 +52,16 @@ const LoginAdmin = () => {
             <div className="col-lg-8 login-font">
 
               <div className="fw-bold mb-2 login-title">
-                <span style={{ color: "#FAC75C" }}>Log</span> In
+                <span style={{ color: "#FAC75C" }}>Sign</span> Up
               </div>
 
               <div>
                 Welcome to WOOFGANG,{" "}
-                <span style={{ color: "#FAC75C" }}>please</span> put your
+                <span style={{ color: "#FAC75C" }}>please</span> Sign up
               </div>
 
               <div className="mb-5">
-                <span style={{ color: "#FAC75C" }}>login credentials</span> below to
-                start using this website
+                <span style={{ color: "#FAC75C" }}> before </span> using this website
               </div>
 
               <form>
@@ -66,7 +69,7 @@ const LoginAdmin = () => {
                   <div className="col-25">
                     <Label
                       htmlFor = {'Email'}
-                      label = {'Email'}
+                      label = {'email'}
                     />
                   </div>
                   <div className="col-75">
@@ -102,29 +105,32 @@ const LoginAdmin = () => {
 
                 <div className="row pt-3 ps-5">
                   <Button
-                    id = {'login'}
+                    id = {'signup'}
                     className={'btn button1 contact-font'}
-                    label = {'Log in'}
+                    label = {'Sign up'}
                     style={{ width: "100%", textAlign: "center" }}
-                    onClick={onLogin}
+                    type="submit"
+                    onClick={onSubmit}
                   />
                 </div>
               </form>
-              {/* <div
-                  className="footer-font text-left ps-5 pb-3"
-                  style={{ fontSize: 20 }}
-                >
-                Dont have any account? 
-                    <Link to={'/Sign-Up'}>
-                      Sign Up
-                    </Link>
-              </div> */}
+
+              <div
+                className="footer-font text-left ps-5 pb-3"
+                style={{ fontSize: 20 }}
+              >
+                Already have account? 
+                  <Link to={'/Login-Admin'}>
+                    Log in
+                  </Link>
+              </div>
+              
             </div>
           </div>
         </section>
-        
+
       </div>
       <img src="src/assets/login.png" alt="login" className="login-pic login-bg" />
     </>
   )}
-export default LoginAdmin
+export default SignUp

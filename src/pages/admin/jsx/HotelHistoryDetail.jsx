@@ -7,81 +7,99 @@ import Button from '../../../component/Button'
 import Input from '../../../component/Input'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { updateHotel } from '../../../HotelReducer'
 import { gql, useMutation, useQuery } from '@apollo/client'
-import { getHotelHistory } from './HotelHistory'
+import { getDetailHotelHistory } from './HotelInfo'
 
-// const UPDATE_HOTEL = gql`
-//   mutation MyQuery (
-//     $id: String!,
-//     $ownerName: String!,
-//     $ownerPhone: String!,
-//     $petName: String!,
-//     $species: String!,
-//     $breed: String!,
-//     $gender: String!,
-//     $weight: String!,
-//     $booking: String!,
-//     $pickup: String!
-//     ) {
-//     update_Hotel_by_pk(
-//       pk_columns: { id: $id }
-//       _set: {
-//         ownerName: $ownerName,
-//         ownerPhone: $ownerPhone,
-//         petName: $petName,
-//         species: $species,
-//         breed: $breed,
-//         gender: $gender,
-//         weight: $weight,
-//         booking: $booking,
-//         pickup: $pickup,
-//       }
-//     ) {
-//       id
-//     }
-//   }
-// `
+const UPDATE_HOTEL = gql`
+  mutation MyQuery (
+    $id: String!,
+    $ownerName: String!,
+    $ownerPhone: String!,
+    $petName: String!,
+    $species: String!,
+    $breed: String!,
+    $gender: String!,
+    $weight: String!,
+    $booking: String!,
+    $pickup: String!
+    ) {
+    update_Hotel_by_pk(
+      pk_columns: { id: $id }
+      _set: {
+        ownerName: $ownerName,
+        ownerPhone: $ownerPhone,
+        petName: $petName,
+        species: $species,
+        breed: $breed,
+        gender: $gender,
+        weight: $weight,
+        booking: $booking,
+        pickup: $pickup,
+      }
+    ) {
+      id
+    }
+  }
+`
 
 const HotelHistoryDetail = () => {
 
+  //mangambil id menggunakan useParam dari router
+  // const {id} = useParams(); 
+   //mengambil data hotel dengan menggunakan useSelector
+  // const hotel = useSelector((state) => state.hotel)
+  //meggunakan filter untuk untuk id yang ada di useParam
+  // const existingHotel = hotel.filter(f => f.id == id);
+  // const {
+  //   ownerName,
+  //   ownerPhone,
+  //   petName,
+  //   species,
+  //   breed,
+  //   gender,
+  //   weight,
+  //   booking,
+  //   pickup
+  // } = existingHotel[0];
+
+  // 'uownerName' untuk nama yang sudah diupdate
+  // 'ownerName' untuk nama yang existing
+  // const [uownerName, setOwnerName] = useState(ownerName)
+  // const [uownerPhone, setOwnerPhone] = useState(ownerPhone)
+  // const [upetName, setPetName] = useState(petName)
+  // const [uspecies, setSpecies] = useState(species)
+  // const [ubreed, setBreed] = useState(breed)
+  // const [ugender, setGender] = useState(gender)
+  // const [uweight, setWeight] = useState(weight)
+  // const [ubooking, setBooking] = useState(booking)
+  // const [upickup, setPickup] = useState(pickup)
+
   const {id} = useParams();
-  const hotel = useSelector((state) => state.hotel)
-  const existingHotel = hotel.filter(f => f.id == id);
-  const {
-    ownerName,
-    ownerPhone,
-    petName,
-    species,
-    breed,
-    gender,
-    weight,
-    booking,
-    pickup
-  } = existingHotel[0];
+  const {data, loading, error} = useQuery(getDetailHotelHistory, { variables : { id : id }})
+    
+  // const {data, loading, error} = useQuery(getDetailHotelHistory)
+  const [update, setUpdate] = useState(data?.Hotel[0])
 
-  const [uownerName, setOwnerName] = useState(ownerName)
-  const [uownerPhone, setOwnerPhone] = useState(ownerPhone)
-  const [upetName, setPetName] = useState(petName)
-  const [uspecies, setSpecies] = useState(species)
-  const [ubreed, setBreed] = useState(breed)
-  const [ugender, setGender] = useState(gender)
-  const [uweight, setWeight] = useState(weight)
-  const [ubooking, setBooking] = useState(booking)
-  const [upickup, setPickup] = useState(pickup)
+  const [updateAppointment] = useMutation(UPDATE_HOTEL, {
+    refetchQueries: [getDetailHotelHistory]
+  })
 
-  // const {data, loading, error} = useQuery(getHotelHistory)
-  // const [update, setUpdate] = useState([])
+  useEffect(() => {
+    if (!loading && error !== undefined){
+      //set "hotel" response to state "Hotel"
+      setUpdate(data?.Hotel[0])
+    }
+    console.log ('loading: ', loading);
+    console.log ('data gql: ', data);
+    console.log('error: ', error);
+  })
 
-  // const [updateAppointment] = useMutation(UPDATE_HOTEL, {
-  //   refetchQueries: [getHotelHistory]
-  // })
-
-    // //check if data is still fetching
+    //check if data is still fetching
     // if (!loading && error !== undefined){
     //   //set "hotel" response to state "Hotel"
-    //   setUpdate(data.Hotel)
+    //   setUpdate(data?.Hotel[0])
     // }
 
 
@@ -92,31 +110,31 @@ const HotelHistoryDetail = () => {
     e.preventDefault();
     dispatch(updateHotel({
       id: id,
-      ownerName: uownerName,
-      ownerPhone: uownerPhone,
-      petName: upetName,
-      species: uspecies,
-      breed: ubreed,
-      gender: ugender,
-      weight: uweight,
-      booking: ubooking,
-      pickup: upickup
+      ownerName: ownerName,
+      ownerPhone: ownerPhone,
+      petName: petName,
+      species: species,
+      breed: breed,
+      gender: gender,
+      weight: weight,
+      booking: booking,
+      pickup: pickup
     }))
-    // const item = data?.Hotel.find((v) => v.id === id)
-    // updateAppointment({
-    //   variables: {
-    //     id: id, 
-    //     ownerName: !item.ownerName,
-    //     ownerPhone: !item.ownerPhone,
-    //     petName: !item.petName,
-    //     species: !item.species,
-    //     breed: !item.breed,
-    //     gender: !item.gender,
-    //     weight: !item.weight,
-    //     booking: !item.booking,
-    //     pickup: !item.pickup
-    //     }
-    // })
+    const item = data?.Hotel.find((v) => v.id === id)
+    updateAppointment({
+      variables: {
+        id: id, 
+        ownerName: !item.ownerName,
+        ownerPhone: !item.ownerPhone,
+        petName: !item.petName,
+        species: !item.species,
+        breed: !item.breed,
+        gender: !item.gender,
+        weight: !item.weight,
+        booking: !item.booking,
+        pickup: !item.pickup
+        }
+    })
     navigate ('/Hotel-History')
   }
 
@@ -150,8 +168,8 @@ const HotelHistoryDetail = () => {
                       id = {'ownerName'}
                       name = {'ownerName'}
                       type = {'text'}
-                      value = {uownerName}
-                      onChange={(e) => setOwnerName(e.target.value)}
+                      value = {update?.ownerName}
+                      onChange={(e) => setUpdate(e.target.value)}
                     />
                   </div>
                 </div>
@@ -167,8 +185,8 @@ const HotelHistoryDetail = () => {
                       id = {'ownerPhone'}
                       name = {'ownerPhone'}
                       type = {'text'}
-                      value = {uownerPhone}
-                      onChange={(e) => setOwnerPhone(e.target.value)}
+                      value = {update?.ownerPhone}
+                      onChange={(e) => setUpdate(e.target.value)}
                     />
                   </div>
                 </div>
@@ -184,8 +202,8 @@ const HotelHistoryDetail = () => {
                       id = {'petName'}
                       name = {'petName'}
                       type = {'text'}
-                      value = {upetName}
-                      onChange={(e) => setPetName(e.target.value)}
+                      value = {update?.petName}
+                      onChange={(e) => setUpdate(e.target.value)}
                     />
                   </div>
                 </div>
@@ -200,8 +218,8 @@ const HotelHistoryDetail = () => {
                     <div className="dropdown dropdown-input">
                       <select 
                         className="form-select appointment-font"
-                        value = {uspecies}
-                        onChange={(e) => setSpecies(e.target.value)}
+                        value = {update?.species}
+                        onChange={(e) => setUpdate(e.target.value)}
                       >
                         <option selected="" disabled="">
                           Choose pet's species...
@@ -224,8 +242,8 @@ const HotelHistoryDetail = () => {
                       id = {'breed'}
                       name = {'breed'}
                       type = {'text'}
-                      value = {ubreed}
-                      onChange={(e) => setBreed(e.target.value)}
+                      value = {update?.breed}
+                      onChange={(e) => setUpdate(e.target.value)}
                     />
                   </div>
                 </div>
@@ -240,8 +258,8 @@ const HotelHistoryDetail = () => {
                     <div className="dropdown dropdown-input">
                       <select 
                         className="form-select appointment-font"
-                        value = {ugender}
-                        onChange={(e) => setGender(e.target.value)}
+                        value = {update?.gender}
+                        onChange={(e) => setUpdate(e.target.value)}
                       >
                         <option selected="" disabled="" value="">
                           Choose pet's gender...
@@ -263,8 +281,8 @@ const HotelHistoryDetail = () => {
                     <div className="dropdown dropdown-input">
                       <select 
                         className="form-select appointment-font"
-                        value = {uweight}
-                        onChange={(e) => setWeight(e.target.value)}
+                        value = {update?.weight}
+                        onChange={(e) => setUpdate(e.target.value)}
                       >
                         <option selected="" disabled="" value="">
                           Choose pet's weight...
@@ -291,8 +309,8 @@ const HotelHistoryDetail = () => {
                       id = {'booking'}
                       name = {'booking'}
                       type = {'date'}
-                      value = {ubooking}
-                      onChange={(e) => setBooking(e.target.value)}
+                      value = {update?.booking}
+                      onChange={(e) => setUpdate(e.target.value)}
                     />
                   </div>
                 </div>
@@ -309,8 +327,8 @@ const HotelHistoryDetail = () => {
                       id = {'pickup'}
                       name = {'pickup'}
                       type = {'date'}
-                      value = {upickup}
-                      onChange={(e) => setPickup(e.target.value)}
+                      value = {update?.pickup}
+                      onChange={(e) => setUpdate(e.target.value)}
                     />
                   </div>
                 </div>
@@ -322,7 +340,7 @@ const HotelHistoryDetail = () => {
                 />
               </div>
             </form>
-            {/* )
+             {/* )
           } */}
           </div>
         </div>

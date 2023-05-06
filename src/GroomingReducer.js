@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { GroomingList } from "./pages/admin/jsx/GroomingList";
 
 const groomingSlice = createSlice ({
     name: "grooming",

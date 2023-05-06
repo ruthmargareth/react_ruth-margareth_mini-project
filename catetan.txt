@@ -16,10 +16,12 @@ Pages:
 - grooming history 
 - grooming history detail 
 - grooming facilities 
+- grooming info
 - hotel appointment 
 - hotel history 
 - hotel history detail 
 - hotel facilities 
+- hotel info
 
 layout: 
 - navbar (user)
@@ -35,6 +37,7 @@ technology:
 - react-redux, @reduxjs/toolkit
 - bootstrap , bootstrap icon
 - graphql, @apollo/client
+- firebase
 
 TODO: 
 1. buat design ✅
@@ -42,5 +45,6 @@ TODO:
 3. buat component ex: label, input, button, textarea ✅ 
 4. buat react route ✅
 5. crud menggunakan redux ✅
-6. 
+6. connect to hasura ✅
+7. login with firebase ✅
 

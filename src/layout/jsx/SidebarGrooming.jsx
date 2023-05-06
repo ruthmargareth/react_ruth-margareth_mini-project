@@ -9,9 +9,11 @@ const SidebarGrooming = () => {
                     <Link to ='/Grooming-Appointment' className="sidenav-content">
                         Appointment
                     </Link>
+
                     <Link to ='/Grooming-History' className="sidenav-content">
                         History
                     </Link>
+                    
                     <Link to ='/Grooming-Facilities-Admin' className="sidenav-content">
                         Facilities
                     </Link>

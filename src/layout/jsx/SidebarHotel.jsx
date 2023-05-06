@@ -9,9 +9,11 @@ const SidebarHotel = () => {
                     <Link to ='/Hotel-Appointment' className="sidenav-content">
                         Appointment
                     </Link>
+
                     <Link to ='/Hotel-History' className="sidenav-content">
                         History
                     </Link>
+                    
                     <Link to ='/Hotel-Facilities-Admin' className="sidenav-content">
                         Facilities
                     </Link>
