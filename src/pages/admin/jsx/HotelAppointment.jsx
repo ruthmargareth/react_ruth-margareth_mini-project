@@ -77,10 +77,10 @@ const HotelAppointment = () => {
           booking: booking,
           pickup: pickup
         }
-      }})
+      }}) 
     navigate('/Hotel-History')
   }
-
+  
   return (
     <>
     <NavbarAdmin/>
@@ -114,6 +114,7 @@ const HotelAppointment = () => {
                       id = {'ownerName'}
                       name = {'ownerName'}
                       type = {'text'}
+                      required
                       onChange={(e) => setOwnerName(e.target.value)}
                     />
                   </div>
@@ -131,6 +132,7 @@ const HotelAppointment = () => {
                       id = {'ownerPhone'}
                       name = {'ownerPhone'}
                       type = {'text'}
+                      required
                       onChange={(e) => setOwnerPhone(e.target.value)}
                     />
                   </div>
@@ -148,6 +150,7 @@ const HotelAppointment = () => {
                       id = {'petName'}
                       name = {'petName'}
                       type = {'text'}
+                      required
                       onChange={(e) => setPetName(e.target.value)}
                     />
                   </div>
@@ -165,12 +168,14 @@ const HotelAppointment = () => {
                       <select 
                         className="form-select appointment-font"
                         onChange={(e) => setSpecies(e.target.value)}
+                        name={"species"}
+                        required
                       >
                         <option selected="" disabled="" value="">
                           Choose pet's species...
                         </option>
-                        <option>cat</option>
-                        <option>dog</option>
+                        <option>Dog</option>
+                        <option>Cat</option>
                       </select>
                     </div>
                   </div>
@@ -188,23 +193,26 @@ const HotelAppointment = () => {
                       id = {'breed'}
                       name = {'breed'}
                       type = {'text'}
+                      required
                       onChange={(e) => setBreed(e.target.value)}
                     />
                   </div>
                 </div>
 
-                <div className="row pb-3">
-                 <div className="col-25">
+              <div className="row pb-3">
+                <div className="col-25">
                   <Label
-                      htmlFor = {'gender'}
-                      label = {"Gender"}
-                    />
+                    htmlFor = {'gender'}
+                    label = {"Gender"}
+                  />
                   </div>
                   <div className="col-75">
                     <div className="dropdown dropdown-input">
                       <select 
                         className="form-select appointment-font"
                         onChange={(e) => setGender(e.target.value)}
+                        name={"gender"}
+                        required
                       >
                         <option selected="" disabled="" value="">
                           Choose pet's gender...
@@ -216,18 +224,20 @@ const HotelAppointment = () => {
                   </div>
                 </div>
 
-                <div className="row pb-3">
-                  <div className="col-25">
-                    <Label
-                      htmlFor = {'weight'}
-                      label = {"Weight"}
-                    />
+              <div className="row pb-3">
+                <div className="col-25">
+                  <Label
+                    htmlFor = {'weight'}
+                    label = {"Weight"}
+                  />
                   </div>
                   <div className="col-75">
                     <div className="dropdown dropdown-input">
                       <select 
                         className="form-select appointment-font"
                         onChange={(e) => setWeight(e.target.value)}
+                        name={"weight"}
+                        required
                       >
                         <option selected="" disabled="" value="">
                           Choose pet's weight...
@@ -255,6 +265,7 @@ const HotelAppointment = () => {
                       id = {'booking'}
                       name = {'booking'}
                       type = {'date'}
+                      required
                       onChange={(e) => setBooking(e.target.value)}
                     />
                   </div>
@@ -273,6 +284,7 @@ const HotelAppointment = () => {
                       id = {'pickup'}
                       name = {'pickup'}
                       type = {'date'}
+                      required
                       onChange={(e) => setPickup(e.target.value)}
                     />
                   </div>

@@ -33,6 +33,37 @@ const REMOVE_GROOMING = gql`
     }
   }
 `
+export const UPDATE_GROOMING = gql`
+mutation MyMutation (
+  $id: String!, 
+  $ownerName: String!,
+  $ownerPhone: String!,
+  $petName: String!,
+  $species: String!,
+  $breed: String!,
+  $gender: String!,
+  $weight: String!,
+  $packet: String!,
+  $date: String!,
+  $time: String!) {
+    update_Grooming_by_pk(
+      pk_columns: {id: $id}, 
+  _set: {
+    ownerName: $ownerName,
+    ownerPhone: $ownerPhone,
+    petName: $petName,
+    species: $species,
+    breed: $breed,
+    gender: $gender,
+    weight: $weight,
+    packet: $packet,
+    date: $date,
+    time: $time,
+  }) {
+    petName
+  }
+}
+`
 
 const GroomingHistory = () => {
   const {data, loading, error} = useQuery(getGroomingHistory)
@@ -42,6 +73,7 @@ const GroomingHistory = () => {
     refetchQueries: [getGroomingHistory]
   })
 
+   //lifecycle function after rendering
   useEffect(() => {
     console.log ('loading: ', loading);
     console.log ('data gql: ', data);
@@ -130,6 +162,7 @@ const GroomingHistory = () => {
                           <Button 
                             id = {'deleltebtn'}
                             label = {'Delete'}
+                            type={"button"}
                             className = {'btn button1 body-font'}
                             style={{ width: 150, textAlign: "center" }}
                             onClick={() => handleDelete(item.id)}

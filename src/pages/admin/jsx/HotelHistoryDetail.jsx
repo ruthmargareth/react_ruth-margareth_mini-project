@@ -6,138 +6,79 @@ import Label from '../../../component/Label'
 import Button from '../../../component/Button'
 import Input from '../../../component/Input'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
 import React, { useEffect, useState } from 'react'
-import { updateHotel } from '../../../HotelReducer'
-import { gql, useMutation, useQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { getDetailHotelHistory } from './HotelInfo'
-
-const UPDATE_HOTEL = gql`
-  mutation MyQuery (
-    $id: String!,
-    $ownerName: String!,
-    $ownerPhone: String!,
-    $petName: String!,
-    $species: String!,
-    $breed: String!,
-    $gender: String!,
-    $weight: String!,
-    $booking: String!,
-    $pickup: String!
-    ) {
-    update_Hotel_by_pk(
-      pk_columns: { id: $id }
-      _set: {
-        ownerName: $ownerName,
-        ownerPhone: $ownerPhone,
-        petName: $petName,
-        species: $species,
-        breed: $breed,
-        gender: $gender,
-        weight: $weight,
-        booking: $booking,
-        pickup: $pickup,
-      }
-    ) {
-      id
-    }
-  }
-`
+import { UPDATE_HOTEL } from './HotelHistory'
 
 const HotelHistoryDetail = () => {
-
-  //mangambil id menggunakan useParam dari router
-  // const {id} = useParams(); 
-   //mengambil data hotel dengan menggunakan useSelector
-  // const hotel = useSelector((state) => state.hotel)
-  //meggunakan filter untuk untuk id yang ada di useParam
-  // const existingHotel = hotel.filter(f => f.id == id);
-  // const {
-  //   ownerName,
-  //   ownerPhone,
-  //   petName,
-  //   species,
-  //   breed,
-  //   gender,
-  //   weight,
-  //   booking,
-  //   pickup
-  // } = existingHotel[0];
-
-  // 'uownerName' untuk nama yang sudah diupdate
-  // 'ownerName' untuk nama yang existing
-  // const [uownerName, setOwnerName] = useState(ownerName)
-  // const [uownerPhone, setOwnerPhone] = useState(ownerPhone)
-  // const [upetName, setPetName] = useState(petName)
-  // const [uspecies, setSpecies] = useState(species)
-  // const [ubreed, setBreed] = useState(breed)
-  // const [ugender, setGender] = useState(gender)
-  // const [uweight, setWeight] = useState(weight)
-  // const [ubooking, setBooking] = useState(booking)
-  // const [upickup, setPickup] = useState(pickup)
+  
+  const navigate = useNavigate();
 
   const {id} = useParams();
-  const {data, loading, error} = useQuery(getDetailHotelHistory, { variables : { id : id }})
-    
-  // const {data, loading, error} = useQuery(getDetailHotelHistory)
-  const [update, setUpdate] = useState(data?.Hotel[0])
-
-  const [updateAppointment] = useMutation(UPDATE_HOTEL, {
-    refetchQueries: [getDetailHotelHistory]
+  const { data, loading, error } = useQuery(getDetailHotelHistory, { variables : { id : id }})
+  const [update, setUpdate] = useState({
+    ownerName: '',
+    ownerPhone:'',
+    petName: '',
+    species: '',
+    breed: '',
+    gender: '',
+    weight: '',
+    booking: '',
+    pickup: ''
   })
 
   useEffect(() => {
-    if (!loading && error !== undefined){
-      //set "hotel" response to state "Hotel"
-      setUpdate(data?.Hotel[0])
+    if (!loading && error === undefined){
+      setUpdate({
+        ownerName: data?.Hotel[0].ownerName,
+        ownerPhone: data?.Hotel[0].ownerPhone,
+        petName: data?.Hotel[0].petName,
+        species: data?.Hotel[0].species,
+        breed: data?.Hotel[0].breed,
+        gender: data?.Hotel[0].gender,
+        weight: data?.Hotel[0].weight,
+        booking: data?.Hotel[0].booking,
+        pickup: data?.Hotel[0].pickup
+      })
     }
     console.log ('loading: ', loading);
     console.log ('data gql: ', data);
     console.log('error: ', error);
+  },[data])
+
+  //2
+  const [updateAppointment] = useMutation(UPDATE_HOTEL, {
+    refetchQueries: [getDetailHotelHistory]
   })
 
-    //check if data is still fetching
-    // if (!loading && error !== undefined){
-    //   //set "hotel" response to state "Hotel"
-    //   setUpdate(data?.Hotel[0])
-    // }
+  const handleOnChange = (e) => {
+    setUpdate({
+        ... update,
+        [e.target.name]: e.target.value 
+    }) 
+}
 
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
+  //3
   const handleUpdate = (e) => {
     e.preventDefault();
-    dispatch(updateHotel({
-      id: id,
-      ownerName: ownerName,
-      ownerPhone: ownerPhone,
-      petName: petName,
-      species: species,
-      breed: breed,
-      gender: gender,
-      weight: weight,
-      booking: booking,
-      pickup: pickup
-    }))
-    const item = data?.Hotel.find((v) => v.id === id)
     updateAppointment({
       variables: {
         id: id, 
-        ownerName: !item.ownerName,
-        ownerPhone: !item.ownerPhone,
-        petName: !item.petName,
-        species: !item.species,
-        breed: !item.breed,
-        gender: !item.gender,
-        weight: !item.weight,
-        booking: !item.booking,
-        pickup: !item.pickup
+        ownerName: update.ownerName,
+        ownerPhone:update.ownerPhone,
+        petName: update.petName,
+        species: update.species,
+        breed: update.breed,
+        gender: update.gender,
+        weight: update.weight,
+        booking: update.booking,
+        pickup: update.pickup
         }
     })
     navigate ('/Hotel-History')
   }
-
 
   return (
     <>
@@ -152,9 +93,8 @@ const HotelHistoryDetail = () => {
             <div className="content-font px-5 py-5">
               <p className="content-title">Hotel History Update</p>
             </div>
-            {/* {
-              data?.Hotel.map(item => */}
-            <form onSubmit={handleUpdate}>
+            
+              <form onSubmit={handleUpdate}>
               <div className="px-5 pb-5 appointment-font">
                 <div className="row pb-3">
                   <div className="col-25">
@@ -169,7 +109,7 @@ const HotelHistoryDetail = () => {
                       name = {'ownerName'}
                       type = {'text'}
                       value = {update?.ownerName}
-                      onChange={(e) => setUpdate(e.target.value)}
+                      onChange={handleOnChange}
                     />
                   </div>
                 </div>
@@ -186,7 +126,7 @@ const HotelHistoryDetail = () => {
                       name = {'ownerPhone'}
                       type = {'text'}
                       value = {update?.ownerPhone}
-                      onChange={(e) => setUpdate(e.target.value)}
+                      onChange={handleOnChange}
                     />
                   </div>
                 </div>
@@ -203,13 +143,14 @@ const HotelHistoryDetail = () => {
                       name = {'petName'}
                       type = {'text'}
                       value = {update?.petName}
-                      onChange={(e) => setUpdate(e.target.value)}
+                      onChange={handleOnChange}
                     />
                   </div>
                 </div>
+
                 <div className="row pb-3">
-                  <div className="col-25">
-                    <Label
+                 <div className="col-25">
+                  <Label
                       htmlFor = {'species'}
                       label = {"Species"}
                     />
@@ -219,17 +160,19 @@ const HotelHistoryDetail = () => {
                       <select 
                         className="form-select appointment-font"
                         value = {update?.species}
-                        onChange={(e) => setUpdate(e.target.value)}
+                        onChange={handleOnChange}
+                        name={"species"}
                       >
-                        <option selected="" disabled="">
+                        <option selected="" disabled="" value="">
                           Choose pet's species...
                         </option>
-                        <option>cat</option>
-                        <option>dog</option>
+                        <option value="Dog">Dog</option>
+                        <option value="Cat">Cat</option>
                       </select>
                     </div>
                   </div>
                 </div>
+
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -243,10 +186,11 @@ const HotelHistoryDetail = () => {
                       name = {'breed'}
                       type = {'text'}
                       value = {update?.breed}
-                      onChange={(e) => setUpdate(e.target.value)}
+                      onChange={handleOnChange}
                     />
                   </div>
                 </div>
+
                 <div className="row pb-3">
                  <div className="col-25">
                   <Label
@@ -259,17 +203,19 @@ const HotelHistoryDetail = () => {
                       <select 
                         className="form-select appointment-font"
                         value = {update?.gender}
-                        onChange={(e) => setUpdate(e.target.value)}
+                        onChange={handleOnChange}
+                        name={"gender"}
                       >
                         <option selected="" disabled="" value="">
                           Choose pet's gender...
                         </option>
-                        <option>Male</option>
-                        <option>Female</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
                       </select>
                     </div>
                   </div>
                 </div>
+
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -282,20 +228,22 @@ const HotelHistoryDetail = () => {
                       <select 
                         className="form-select appointment-font"
                         value = {update?.weight}
-                        onChange={(e) => setUpdate(e.target.value)}
+                        onChange={handleOnChange}
+                        name={"weight"}
                       >
                         <option selected="" disabled="" value="">
                           Choose pet's weight...
                         </option>
-                        <option>0-5kg</option>
-                        <option>5-10kg</option>
-                        <option>10-20kg</option>
-                        <option>20-30kg</option>
-                        <option>30kg up</option>
+                        <option value="0-5kg">0-5kg</option>
+                        <option value="5-10kg">5-10kg</option>
+                        <option value="10-20kg">10-20kg</option>
+                        <option value="20-30kg">20-30kg</option>
+                        <option value="3-kg up">30kg up</option>
                       </select>
                     </div>
                   </div>
                 </div>
+
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -310,7 +258,7 @@ const HotelHistoryDetail = () => {
                       name = {'booking'}
                       type = {'date'}
                       value = {update?.booking}
-                      onChange={(e) => setUpdate(e.target.value)}
+                      onChange={handleOnChange}
                     />
                   </div>
                 </div>
@@ -328,7 +276,7 @@ const HotelHistoryDetail = () => {
                       name = {'pickup'}
                       type = {'date'}
                       value = {update?.pickup}
-                      onChange={(e) => setUpdate(e.target.value)}
+                      onChange={handleOnChange}
                     />
                   </div>
                 </div>
@@ -340,8 +288,7 @@ const HotelHistoryDetail = () => {
                 />
               </div>
             </form>
-             {/* )
-          } */}
+
           </div>
         </div>
       </div>

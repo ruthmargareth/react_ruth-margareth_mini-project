@@ -6,60 +6,79 @@ import Label from '../../../component/Label'
 import Button from '../../../component/Button'
 import Input from '../../../component/Input'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import React, { useState } from 'react'
-import { updateGrooming } from '../../../GroomingReducer'
-import { gql, useMutation, useQuery } from '@apollo/client'
-import { getGroomingHistory } from './GroomingHistory'
+import React, { useEffect, useState } from 'react'
+import { useMutation, useQuery } from '@apollo/client'
+import { getDetailGroomingHistory } from './GroomingInfo'
+import { UPDATE_GROOMING } from './GroomingHistory'
 
 const GroomingHistoryDetail = () => {
-  
-  const {id} = useParams();
-  const grooming = useSelector((state) => state.grooming)
-  const existingGrooming = grooming.filter(f => f.id == id);
-  const {
-    ownerName,
-    ownerPhone,
-    petName,
-    species,
-    breed,
-    gender,
-    weight,
-    packet,
-    date,
-    time
-  } = existingGrooming[0];
 
-  const [uownerName, setOwnerName] = useState(ownerName)
-  const [uownerPhone, setOwnerPhone] = useState(ownerPhone)
-  const [upetName, setPetName] = useState(petName)
-  const [uspecies, setSpecies] = useState(species)
-  const [ubreed, setBreed] = useState(breed)
-  const [ugender, setGender] = useState(gender)
-  const [uweight, setWeight] = useState(weight)
-  const [upacket, setPacket] = useState(packet)
-  const [udate, setDate] = useState(date)
-  const [utime, setTime] = useState(time)
-
-
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const {id} = useParams();
+  const { data, loading, error } = useQuery(getDetailGroomingHistory, { variables : { id : id }})
+  const [update, setUpdate] = useState({
+    ownerName: '',
+    ownerPhone:'',
+    petName: '',
+    species: '',
+    breed: '',
+    gender: '',
+    weight: '',
+    packet: '',
+    date: '',
+    time: ''
+  })
+
+  useEffect(() => {
+    if (!loading && error === undefined){
+      setUpdate({
+        ownerName: data?.Grooming[0].ownerName,
+        ownerPhone: data?.Grooming[0].ownerPhone,
+        petName: data?.Grooming[0].petName,
+        species: data?.Grooming[0].species,
+        breed: data?.Grooming[0].breed,
+        gender: data?.Grooming[0].gender,
+        weight: data?.Grooming[0].weight,
+        packet: data?.Grooming[0].packet,
+        date: data?.Grooming[0].date,
+        time: data?.Grooming[0].time
+      })
+    }
+    console.log ('loading: ', loading);
+    console.log ('data gql: ', data);
+    console.log('error: ', error);
+  },[data])
+
+  //2
+  const [updateAppointment] = useMutation(UPDATE_GROOMING, {
+    refetchQueries: [getDetailGroomingHistory]
+  })
+
+  const handleOnChange = (e) => {
+    setUpdate({
+        ... update,
+        [e.target.name]: e.target.value 
+    }) 
+}
+ 
   const handleUpdate = (e) => {
     e.preventDefault();
-    dispatch(updateGrooming({
-      id:id,
-      ownerName: uownerName,
-      ownerPhone: uownerPhone,
-      petName: upetName,
-      species: uspecies,
-      breed: ubreed,
-      gender: ugender,
-      weight: uweight,
-      packet: upacket,
-      date: udate,
-      time: utime
-    }))
+    updateAppointment({
+      variables: {
+        id: id, 
+        ownerName: update.ownerName,
+        ownerPhone:update.ownerPhone,
+        petName: update.petName,
+        species: update.species,
+        breed: update.breed,
+        gender: update.gender,
+        weight: update.weight,
+        packet: update.packet,
+        date: update.date,
+        time: update.time
+        }
+    })
     navigate ('/Grooming-History')
   }
 
@@ -91,8 +110,8 @@ const GroomingHistoryDetail = () => {
                       id = {'ownerName'}
                       name = {'ownerName'}
                       type = {'text'}
-                      value = {uownerName}
-                      onChange={(e) => setOwnerName(e.target.value)}
+                      value = {update?.ownerName}
+                      onChange={handleOnChange}
                     />
                   </div>
                 </div>
@@ -108,8 +127,8 @@ const GroomingHistoryDetail = () => {
                       id = {'ownerPhone'}
                       name = {'ownerPhone'}
                       type = {'text'}
-                      value = {uownerPhone}
-                      onChange={(e) => setOwnerPhone(e.target.value)}
+                      value = {update?.ownerPhone}
+                      onChange={handleOnChange}
                     />
                   </div>
                 </div>
@@ -125,8 +144,8 @@ const GroomingHistoryDetail = () => {
                       id = {'petName'}
                       name = {'petName'}
                       type = {'text'}
-                      value = {upetName}
-                      onChange={(e) => setPetName(e.target.value)}
+                      value = {update?.petName}
+                      onChange={handleOnChange}
                     />
                   </div>
                 </div>
@@ -141,14 +160,15 @@ const GroomingHistoryDetail = () => {
                     <div className="dropdown dropdown-input">
                       <select 
                         className="form-select appointment-font"
-                        value = {uspecies}
-                        onChange={(e) => setSpecies(e.target.value)}
+                        value = {update?.species}
+                        onChange={handleOnChange}
+                        name={"species"}
                       >
                         <option selected="" disabled="">
                           Choose pet's species...
                         </option>
-                        <option>cat</option>
-                        <option>dog</option>
+                        <option>Dog</option>
+                        <option>Cat</option>
                       </select>
                     </div>
                   </div>
@@ -165,8 +185,8 @@ const GroomingHistoryDetail = () => {
                       id = {'breed'}
                       name = {'breed'}
                       type = {'text'}
-                      value = {ubreed}
-                      onChange={(e) => setBreed(e.target.value)}
+                      value = {update?.breed}
+                      onChange={handleOnChange}
                     />
                   </div>
                 </div>
@@ -181,8 +201,9 @@ const GroomingHistoryDetail = () => {
                     <div className="dropdown dropdown-input">
                       <select 
                         className="form-select appointment-font"
-                        value = {ugender}
-                        onChange={(e) => setGender(e.target.value)}
+                        value = {update?.gender}
+                        onChange={handleOnChange}
+                        name={"gender"}
                       >
                         <option selected="" disabled="" value="">
                           Choose pet's gender...
@@ -204,8 +225,9 @@ const GroomingHistoryDetail = () => {
                     <div className="dropdown dropdown-input">
                       <select 
                         className="form-select appointment-font"
-                        value = {uweight}
-                        onChange={(e) => setWeight(e.target.value)}
+                        value = {update?.weight}
+                        onChange={handleOnChange}
+                        name={"weight"}
                       >
                         <option selected="" disabled="" value="">
                           Choose pet's weight...
@@ -230,8 +252,9 @@ const GroomingHistoryDetail = () => {
                     <div className="dropdown dropdown-input">
                       <select 
                         className="form-select appointment-font"
-                        value = {upacket}
-                        onChange={(e) => setPacket(e.target.value)}
+                        value = {update?.packet}
+                        onChange={handleOnChange}
+                        name={"packet"}
                       >
                         <option selected="" disabled="" value="">
                           Choose pet's packet...
@@ -257,8 +280,8 @@ const GroomingHistoryDetail = () => {
                       id = {'date'}
                       name = {'date'}
                       type = {'date'}
-                      value = {udate}
-                      onChange={(e) => setDate(e.target.value)}
+                      value = {update?.date}
+                      onChange={handleOnChange}
                     />
                   </div>
                 </div>
@@ -275,8 +298,8 @@ const GroomingHistoryDetail = () => {
                       id = {'time'}
                       name = {'time'}
                       type = {'time'}
-                      value = {utime}
-                      onChange={(e) => setTime(e.target.value)}
+                      value = {update?.time}
+                      onChange={handleOnChange}
                     />
                   </div>
                 </div>
