@@ -2,6 +2,12 @@ import '../css/content.css'
 import NavbarAdmin from '../../../layout/jsx/NavbarAdmin'
 import SidebarHotel from '../../../layout/jsx/SidebarHotel'
 import FooterAdmin from '../../../layout/jsx/FooterAdmin'
+import outdoor from '../../../assets/outdoor.png'
+import indoor from '../../../assets/indoor.png'
+import swimming from '../../../assets/swimming.png'
+import doghotel from '../../../assets/doghotel.png'
+import cathotel from '../../../assets/cathotel.png'
+import play from '../../../assets/play.png'
 
 const HotelFacilitiesAdmin = () => {
   return (
@@ -27,7 +33,7 @@ const HotelFacilitiesAdmin = () => {
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
-                      src="src/assets/outdoor.png"
+                      src={outdoor}
                       className="card-img-top"
                       alt="outdoor"
                     />
@@ -40,7 +46,7 @@ const HotelFacilitiesAdmin = () => {
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
-                      src="src/assets/indoor.png"
+                      src={indoor}
                       className="card-img-top"
                       alt="indoor"
                     />
@@ -53,7 +59,7 @@ const HotelFacilitiesAdmin = () => {
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
-                      src="src/assets/swimming.png"
+                      src={swimming}
                       className="card-img-top"
                       alt="swimming pool"
                     />
@@ -66,7 +72,7 @@ const HotelFacilitiesAdmin = () => {
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
-                      src="src/assets/doghotel.png"
+                      src={doghotel}
                       className="card-img-top"
                       alt="dog hotel"
                     />
@@ -79,7 +85,7 @@ const HotelFacilitiesAdmin = () => {
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
-                      src="src/assets/cathotel.png"
+                      src={cathotel}
                       className="card-img-top"
                       alt="cat hotel"
                     />
@@ -92,7 +98,7 @@ const HotelFacilitiesAdmin = () => {
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
-                      src="src/assets/play.png"
+                      src={play}
                       className="card-img-top"
                       alt="playground"
                     />

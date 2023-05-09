@@ -1,5 +1,6 @@
 import '../css/Footer.css'
 import { Link } from 'react-router-dom'
+import woofgang from '../../assets/woofgang.png'
 
 const FooterAdmin = () => {
     return (
@@ -12,7 +13,7 @@ const FooterAdmin = () => {
                         <div className="d-flex flex-column text-left ps-5">
                             <div>
                                 <img
-                                    src="/src/assets/woofgang.png"
+                                    src={woofgang}
                                     className="logo"
                                     alt="woofgang"
                                 />

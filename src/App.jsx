@@ -7,7 +7,10 @@ import Label from './component/Label'
 import Input from './component/Input'
 import TextArea from './component/TextArea'
 import { useState } from 'react'
-
+import catdog from '../../../assets/catdog.png'
+import hotel from '../../../assets/hotel.png'
+import grooming from '../../../assets/grooming.png'
+import cat from '../../../assets/cat.png'
 
 const App = () => {
   const navigate = useNavigate()
@@ -62,7 +65,7 @@ const App = () => {
             </div>
 
             <div className="col-6">
-              <img src="src/assets/catdog.png" alt="catdog" />
+              <img src={catdog} alt="catdog" />
             </div>
 
           </div>
@@ -75,7 +78,7 @@ const App = () => {
           <div className="row">
 
             <div className="col-9">
-              <img src="src/assets/hotel.png" alt="hotel" width="100%" />
+              <img src={hotel} alt="hotel" width="100%" />
             </div>
 
             <div className="col-3">
@@ -117,7 +120,7 @@ const App = () => {
             </div>
 
             <div className="col-9">
-              <img src="src/assets/grooming.png" alt="grooming" width="100%" />
+              <img src={grooming} alt="grooming" width="100%" />
             </div>
 
           </div>
@@ -130,7 +133,7 @@ const App = () => {
           <div className="row">
 
             <div className="col-5 ps-5 pt-3">
-              <img src="src/assets/cat.png" alt="cat" width={600} />
+              <img src={cat} alt="cat" width={600} />
             </div>
 
             <div className="col-7">

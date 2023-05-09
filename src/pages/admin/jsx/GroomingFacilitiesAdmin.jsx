@@ -2,6 +2,13 @@ import '../css/content.css'
 import NavbarAdmin from '../../../layout/jsx/NavbarAdmin'
 import SidebarGrooming from '../../../layout/jsx/SidebarGrooming'
 import FooterAdmin from '../../../layout/jsx/FooterAdmin'
+import bath from '../../../assets/bath.png'
+import blowdry from '../../../assets/blowdry.png'
+import cut from '../../../assets/cut.png'
+import styling from '../../../assets/styling.png'
+import nail from '../../../assets/nail.png'
+import trimming from '../../../assets/trimming.png'
+import brush from '../../../assets/brush.png'
 
 const GroomingFacilitiesAdmin = () => {
   return (
@@ -27,7 +34,7 @@ const GroomingFacilitiesAdmin = () => {
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
-                      src="src/assets/bath.png"
+                      src={bath}
                       className="card-img-top"
                       alt="bath"
                     />
@@ -40,7 +47,7 @@ const GroomingFacilitiesAdmin = () => {
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
-                      src="src/assets/blowdry.png"
+                      src={blowdry}
                       className="card-img-top"
                       alt="blow dry"
                     />
@@ -53,7 +60,7 @@ const GroomingFacilitiesAdmin = () => {
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
-                      src="src/assets/cut.png"
+                      src={cut}
                       className="card-img-top"
                       alt="basic grooming"
                     />
@@ -66,7 +73,7 @@ const GroomingFacilitiesAdmin = () => {
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
-                      src="src/assets/styling.png"
+                      src={styling}
                       className="card-img-top"
                       alt="styling"
                     />
@@ -79,7 +86,7 @@ const GroomingFacilitiesAdmin = () => {
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
-                      src="src/assets/nail.png"
+                      src={nail}
                       className="card-img-top"
                       alt="nail cut"
                     />
@@ -92,7 +99,7 @@ const GroomingFacilitiesAdmin = () => {
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
-                      src="src/assets/trimming.png"
+                      src={trimming}
                       className="card-img-top"
                       alt="trimming"
                     />
@@ -105,7 +112,7 @@ const GroomingFacilitiesAdmin = () => {
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
-                      src="src/assets/brush.png"
+                      src={brush}
                       className="card-img-top"
                       alt="brushing"
                     />

@@ -2,6 +2,7 @@ import Button from '../../component/Button'
 import '../css/Navbar.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { getAuth, signOut } from "firebase/auth";
+import woofgang from '../../assets/woofgang.png'
 
 const NavbarAdmin = () => {
 
@@ -27,7 +28,7 @@ const NavbarAdmin = () => {
         <>
             <nav className="navbar navbar-expand-lg navbar-shadow navbar-bg font pt-4">
                 <div className="container-fluid">
-                    <img src="/src/assets/woofgang.png" className="logo" alt="woofgang" />
+                    <img src={woofgang} className="logo" alt="woofgang" />
                     <Link to ='/Landing-Page-Admin' className="navbar-brand navbar-font navbar-title">
                         WOOFGANG
                     </Link>
