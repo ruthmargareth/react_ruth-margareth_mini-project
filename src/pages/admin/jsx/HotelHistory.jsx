@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteHotel } from '../../../HotelReducer'
 import { gql, useMutation, useQuery } from '@apollo/client'
-// import HotelModal from './HotelModal'
 
 export const getHotelHistory = gql`
 query MyQuery {
@@ -33,6 +32,36 @@ const REMOVE_HOTEL = gql`
     }
   }
 `
+//1
+export const UPDATE_HOTEL = gql`
+mutation MyMutation (
+  $id: String!, 
+  $ownerName: String!,
+  $ownerPhone: String!,
+  $petName: String!,
+  $species: String!,
+  $breed: String!,
+  $gender: String!,
+  $weight: String!,
+  $booking: String!,
+  $pickup: String!) {
+    update_Hotel_by_pk(
+      pk_columns: {id: $id}, 
+  _set: {
+    ownerName: $ownerName,
+    ownerPhone: $ownerPhone,
+    petName: $petName,
+    species: $species,
+    breed: $breed,
+    gender: $gender,
+    weight: $weight,
+    booking: $booking,
+    pickup: $pickup,
+  }) {
+    petName
+  }
+}
+`
 
 const HotelHistory = () => {
   const {data, loading, error} = useQuery(getHotelHistory)
@@ -42,6 +71,7 @@ const HotelHistory = () => {
     refetchQueries: [getHotelHistory]
   })
 
+  //lifecycle function after rendering
   useEffect(() => {
     console.log ('loading: ', loading);
     console.log ('data gql: ', data);
@@ -131,13 +161,11 @@ const HotelHistory = () => {
                       <div className="col-6">
                         <Button
                           id = {'deleltebtn'}
+                          label = {'Delete'}
                           type={"button"}
                           className={"btn button1 body-font"}
                           style={{ width: 150, textAlign: "center" }}
                           onClick={() => handleDelete(item.id)}
-                          toggle={"modal"}
-                          target={"#staticBackdrop"}
-                          label = {"Delete"}
                         />
                       </div>
                     </div>
@@ -147,91 +175,6 @@ const HotelHistory = () => {
               </div>
                 )
               }
-
-              {/* modal */}
-              {/* <HotelModal/> */}
-              {/* <div
-              className="modal fade"
-              id="staticBackdrop"
-              data-bs-backdrop="static"
-              data-bs-keyboard="false"
-              tabIndex={-1}
-              aria-labelledby="staticBackdropLabel"
-              aria-hidden="true"
-              >
-                <div className="modal-dialog modal-lg">
-                  <div className="modal-content">
-                    <div className="modal-body">
-                      <div className="container modal-font"> */}
-                        {/* title */}
-                        {/* <div className="modal-title font">
-                          <div className="row">
-                            <div className="col mt-3 modal-icon">
-                              <i className="bi bi-trash3"></i>
-                            </div>
-                          </div>
-                          <div className="row">
-                            <div className="col my-3">
-                              <h5 className="modal-title">Are you sure want to delete this history data?</h5>
-                            </div>
-                          </div>
-                        </div> */}
-                        {/* data */}
-                        {/* {
-                          data?.Hotel.map(item =>
-                        <div className="modal-notif font">
-                          <div className="row my-2">
-                            <div className="col">
-                              pet name
-                            </div>
-                            <div className="col">
-                              breed
-                            </div>
-                            <div className="col">
-                              pickup date
-                            </div>
-                          </div>
-                          <div className="row my-2">
-                            <div className="col">
-                              {item.petName}
-                            </div>
-                            <div className="col">
-                              {item.breed}
-                            </div>
-                            <div className="col">
-                              {item.pickup}
-                            </div>
-                          </div> */}
-                          {/* button */}
-                          {/* <div className="row mt-5 mb-2">
-                            <div className="col">
-                              <Button
-                                id={'editbtn'}
-                                className={'btn button2 body-font'}
-                                label={'Cancel'}
-                                style={{ width: 150, textAlign: "center" }}
-                                dismiss={"modal"}
-                              />
-                            </div>
-                            <div className="col">
-                              <Button
-                                id={'deleltebtn'}
-                                label={'Delete'}
-                                className={'btn button1 body-font'}
-                                style={{ width: 150, textAlign: "center" }}
-                                onClick={() => handleDelete(hotel.id)}
-                                dismiss={"modal"}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                          )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-
             </div>
 
           </div>

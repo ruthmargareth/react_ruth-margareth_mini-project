@@ -118,6 +118,7 @@ const GroomingAppointment = () => {
                       id = {'ownerName'}
                       name = {'ownerName'}
                       type = {'text'}
+                      required
                       onChange={(e) => setOwnerName(e.target.value)}
                     />
                   </div>
@@ -135,6 +136,7 @@ const GroomingAppointment = () => {
                       id = {'ownerPhone'}
                       name = {'ownerPhone'}
                       type = {'text'}
+                      required
                       onChange={(e) => setOwnerPhone(e.target.value)}
                     />
                   </div>
@@ -152,6 +154,7 @@ const GroomingAppointment = () => {
                       id = {'petName'}
                       name = {'petName'}
                       type = {'text'}
+                      required
                       onChange={(e) => setPetName(e.target.value)}
                     />
                   </div>
@@ -169,12 +172,14 @@ const GroomingAppointment = () => {
                       <select 
                         className="form-select appointment-font"
                         onChange={(e) => setSpecies(e.target.value)}
+                        name={"species"}
+                        required
                       >
                         <option selected="" disabled="" value="">
                           Choose pet's species...
                         </option>
-                        <option>cat</option>
-                        <option>dog</option>
+                        <option>Dog</option>
+                        <option>Cat</option>
                       </select>
                     </div>
                   </div>
@@ -192,6 +197,7 @@ const GroomingAppointment = () => {
                       id = {'breed'}
                       name = {'breed'}
                       type = {'text'}
+                      required
                       onChange={(e) => setBreed(e.target.value)}
                     />
                   </div>
@@ -209,6 +215,8 @@ const GroomingAppointment = () => {
                       <select 
                         className="form-select appointment-font"
                         onChange={(e) => setGender(e.target.value)}
+                        name={"gender"}
+                        required
                       >
                         <option selected="" disabled="" value="">
                           Choose pet's gender...
@@ -232,6 +240,8 @@ const GroomingAppointment = () => {
                       <select 
                         className="form-select appointment-font"
                         onChange={(e) => setWeight(e.target.value)}
+                        name={"weight"}
+                        required
                       >
                         <option selected="" disabled="" value="">
                           Choose pet's weight...
@@ -258,6 +268,8 @@ const GroomingAppointment = () => {
                       <select 
                         className="form-select appointment-font"
                         onChange={(e) => setPacket(e.target.value)}
+                        name={"packet"}
+                        required
                       >
                         <option selected="" disabled="" value="">
                           Choose pet's packet...
@@ -284,6 +296,7 @@ const GroomingAppointment = () => {
                       id = {'date'}
                       name = {'date'}
                       type = {'date'}
+                      required
                       onChange={(e) => setDate(e.target.value)}
                     />
                   </div>
@@ -302,6 +315,7 @@ const GroomingAppointment = () => {
                       id = {'time'}
                       name = {'time'}
                       type = {'time'}
+                      required
                       onChange={(e) => setTime(e.target.value)}
                     />
                   </div>

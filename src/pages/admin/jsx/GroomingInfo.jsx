@@ -5,7 +5,7 @@ import FooterAdmin from '../../../layout/jsx/FooterAdmin'
 import Label from '../../../component/Label'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { gql, useMutation, useQuery } from '@apollo/client'
+import { gql, useQuery } from '@apollo/client'
 
 export const getDetailGroomingHistory = gql`
 query MyQuery ($id: String!) {
