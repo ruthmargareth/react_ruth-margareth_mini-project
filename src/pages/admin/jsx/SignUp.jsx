@@ -6,6 +6,8 @@ import Input from '../../../component/Input'
 import { useState } from 'react'
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
 import { app } from '../../../firebaseConfig'
+import woofgang from '../../../assets/woofgang.png'
+import login from '../../../assets/login.png'
 
 const SignUp = () => {
   const navigate = useNavigate()
@@ -39,7 +41,7 @@ const SignUp = () => {
       <div className="container-fluid login-bg">
         <div className="row align-items-start pt-4">
           <div className="col ps-3p">
-            <img src="src/assets/woofgang.png" className="logo" alt="woofgang" />
+            <img src={woofgang} className="logo" alt="woofgang" />
             <a className="login-font" href="#">
               WOOFGANG
             </a>
@@ -128,7 +130,7 @@ const SignUp = () => {
         </section>
 
       </div>
-      <img src="src/assets/login.png" alt="login" className="login-pic login-bg" />
+      <img src={login} alt="login" className="login-pic login-bg" />
     </>
   )}
 export default SignUp

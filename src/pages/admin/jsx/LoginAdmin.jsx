@@ -5,6 +5,9 @@ import Label from '../../../component/Label'
 import Input from '../../../component/Input'
 import { useState } from 'react'
 import { getAuth, signInWithEmailAndPassword } from '@firebase/auth'
+import woofgang from '../../../assets/woofgang.png'
+import login from '../../../assets/login.png'
+
 
 const LoginAdmin = () => {
   const navigate = useNavigate()
@@ -36,7 +39,7 @@ const LoginAdmin = () => {
 
         <div className="row align-items-start pt-4">
           <div className="col ps-3p">
-            <img src="src/assets/woofgang.png" className="logo" alt="woofgang" />
+            <img src={woofgang} className="logo" alt="woofgang" />
             <Link to= "/" className="login-font">
               WOOFGANG
             </Link>
@@ -121,7 +124,7 @@ const LoginAdmin = () => {
         </section>
         
       </div>
-      <img src="src/assets/login.png" alt="login" className="login-pic login-bg" />
+      <img src={login} alt="login" className="login-pic login-bg" />
     </>
   )}
 export default LoginAdmin

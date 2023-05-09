@@ -2,6 +2,13 @@ import FooterUser from '../../../layout/jsx/FooterUser'
 import NavbarUser from '../../../layout/jsx/NavbarUser'
 import SidebarUser from '../../../layout/jsx/SidebarUser'
 import '../css/content.css'
+import bath from '../../../assets/bath.png'
+import blowdry from '../../../assets/blowdry.png'
+import cut from '../../../assets/cut.png'
+import styling from '../../../assets/styling.png'
+import nail from '../../../assets/nail.png'
+import trimming from '../../../assets/trimming.png'
+import brush from '../../../assets/brush.png'
 
 const GroomingFacilities = () => {
   return (
@@ -28,7 +35,7 @@ const GroomingFacilities = () => {
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
-                      src="src/assets/bath.png"
+                      src={bath}
                       className="card-img-top"
                       alt="bath"
                     />
@@ -41,7 +48,7 @@ const GroomingFacilities = () => {
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
-                      src="src/assets/blowdry.png"
+                      src={blowdry}
                       className="card-img-top"
                       alt="blow dry"
                     />
@@ -54,7 +61,7 @@ const GroomingFacilities = () => {
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
-                      src="src/assets/cut.png"
+                      src={cut}
                       className="card-img-top"
                       alt="basic grooming"
                     />
@@ -67,7 +74,7 @@ const GroomingFacilities = () => {
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
-                      src="src/assets/styling.png"
+                      src={styling}
                       className="card-img-top"
                       alt="styling"
                     />
@@ -80,7 +87,7 @@ const GroomingFacilities = () => {
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
-                      src="src/assets/nail.png"
+                      src={nail}
                       className="card-img-top"
                       alt="nail cut"
                     />
@@ -93,7 +100,7 @@ const GroomingFacilities = () => {
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
-                      src="src/assets/trimming.png"
+                      src={trimming}
                       className="card-img-top"
                       alt="trimming"
                     />
@@ -106,7 +113,7 @@ const GroomingFacilities = () => {
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
-                      src="src/assets/brush.png"
+                      src={brush}
                       className="card-img-top"
                       alt="brushing"
                     />

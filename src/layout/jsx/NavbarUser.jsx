@@ -1,6 +1,7 @@
 import '../css/Navbar.css'
 import { Link, useNavigate } from 'react-router-dom'
 import Button from '../../component/Button'
+import woofgang from '../../assets/woofgang.png'
 
 const NavbarUser = () => {
     const navigate = useNavigate() 
@@ -9,7 +10,7 @@ const NavbarUser = () => {
     <>
         <nav className="navbar navbar-expand-lg navbar-shadow navbar-bg pt-4">
             <div className="container-fluid">
-                <img src="src/assets/woofgang.png" className="logo" alt="woofgang" />
+                <img src={woofgang} className="logo" alt="woofgang" />
                 <Link to="/" className="navbar-brand navbar-font navbar-title">
                     WOOFGANG
                 </Link>
