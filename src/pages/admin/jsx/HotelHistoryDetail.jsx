@@ -6,58 +6,79 @@ import Label from '../../../component/Label'
 import Button from '../../../component/Button'
 import Input from '../../../component/Input'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import React, { useState } from 'react'
-import { updateHotel } from '../../../HotelReducer'
+import React, { useEffect, useState } from 'react'
+import { useMutation, useQuery } from '@apollo/client'
+import { getDetailHotelHistory } from './HotelInfo'
+import { UPDATE_HOTEL } from './HotelHistory'
 
 const HotelHistoryDetail = () => {
   
-  const {id} = useParams();
-  const hotel = useSelector((state) => state.hotel)
-  const existingHotel = hotel.filter(f => f.id == id);
-  const {
-    ownerName,
-    ownerPhone,
-    petName,
-    species,
-    breed,
-    gender,
-    weight,
-    booking,
-    pickup
-  } = existingHotel[0];
-
-  const [uownerName, setOwnerName] = useState(ownerName)
-  const [uownerPhone, setOwnerPhone] = useState(ownerPhone)
-  const [upetName, setPetName] = useState(petName)
-  const [uspecies, setSpecies] = useState(species)
-  const [ubreed, setBreed] = useState(breed)
-  const [ugender, setGender] = useState(gender)
-  const [uweight, setWeight] = useState(weight)
-  const [ubooking, setBooking] = useState(booking)
-  const [upickup, setPickup] = useState(pickup)
-
-
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const {id} = useParams();
+  const { data, loading, error } = useQuery(getDetailHotelHistory, { variables : { id : id }})
+  const [update, setUpdate] = useState({
+    ownerName: '',
+    ownerPhone:'',
+    petName: '',
+    species: '',
+    breed: '',
+    gender: '',
+    weight: '',
+    booking: '',
+    pickup: ''
+  })
+
+  useEffect(() => {
+    if (!loading && error === undefined){
+      setUpdate({
+        ownerName: data?.Hotel[0].ownerName,
+        ownerPhone: data?.Hotel[0].ownerPhone,
+        petName: data?.Hotel[0].petName,
+        species: data?.Hotel[0].species,
+        breed: data?.Hotel[0].breed,
+        gender: data?.Hotel[0].gender,
+        weight: data?.Hotel[0].weight,
+        booking: data?.Hotel[0].booking,
+        pickup: data?.Hotel[0].pickup
+      })
+    }
+    console.log ('loading: ', loading);
+    console.log ('data gql: ', data);
+    console.log('error: ', error);
+  },[data])
+
+  //2
+  const [updateAppointment] = useMutation(UPDATE_HOTEL, {
+    refetchQueries: [getDetailHotelHistory]
+  })
+
+  const handleOnChange = (e) => {
+    setUpdate({
+        ... update,
+        [e.target.name]: e.target.value 
+    }) 
+}
+
+  //3
   const handleUpdate = (e) => {
     e.preventDefault();
-    dispatch(updateHotel({
-      id:id,
-      ownerName: uownerName,
-      ownerPhone: uownerPhone,
-      petName: upetName,
-      species: uspecies,
-      breed: ubreed,
-      gender: ugender,
-      weight: uweight,
-      booking: ubooking,
-      pickup: upickup
-    }))
+    updateAppointment({
+      variables: {
+        id: id, 
+        ownerName: update.ownerName,
+        ownerPhone:update.ownerPhone,
+        petName: update.petName,
+        species: update.species,
+        breed: update.breed,
+        gender: update.gender,
+        weight: update.weight,
+        booking: update.booking,
+        pickup: update.pickup
+        }
+    })
     navigate ('/Hotel-History')
   }
-
 
   return (
     <>
@@ -72,7 +93,8 @@ const HotelHistoryDetail = () => {
             <div className="content-font px-5 py-5">
               <p className="content-title">Hotel History Update</p>
             </div>
-            <form onSubmit={handleUpdate}>
+            
+              <form onSubmit={handleUpdate}>
               <div className="px-5 pb-5 appointment-font">
                 <div className="row pb-3">
                   <div className="col-25">
@@ -86,8 +108,8 @@ const HotelHistoryDetail = () => {
                       id = {'ownerName'}
                       name = {'ownerName'}
                       type = {'text'}
-                      value = {uownerName}
-                      onChange={(e) => setOwnerName(e.target.value)}
+                      value = {update?.ownerName}
+                      onChange={handleOnChange}
                     />
                   </div>
                 </div>
@@ -103,8 +125,8 @@ const HotelHistoryDetail = () => {
                       id = {'ownerPhone'}
                       name = {'ownerPhone'}
                       type = {'text'}
-                      value = {uownerPhone}
-                      onChange={(e) => setOwnerPhone(e.target.value)}
+                      value = {update?.ownerPhone}
+                      onChange={handleOnChange}
                     />
                   </div>
                 </div>
@@ -120,14 +142,15 @@ const HotelHistoryDetail = () => {
                       id = {'petName'}
                       name = {'petName'}
                       type = {'text'}
-                      value = {upetName}
-                      onChange={(e) => setPetName(e.target.value)}
+                      value = {update?.petName}
+                      onChange={handleOnChange}
                     />
                   </div>
                 </div>
+
                 <div className="row pb-3">
-                  <div className="col-25">
-                    <Label
+                 <div className="col-25">
+                  <Label
                       htmlFor = {'species'}
                       label = {"Species"}
                     />
@@ -136,18 +159,20 @@ const HotelHistoryDetail = () => {
                     <div className="dropdown dropdown-input">
                       <select 
                         className="form-select appointment-font"
-                        value = {uspecies}
-                        onChange={(e) => setSpecies(e.target.value)}
+                        value = {update?.species}
+                        onChange={handleOnChange}
+                        name={"species"}
                       >
-                        <option selected="" disabled="">
+                        <option selected="" disabled="" value="">
                           Choose pet's species...
                         </option>
-                        <option>cat</option>
-                        <option>dog</option>
+                        <option value="Dog">Dog</option>
+                        <option value="Cat">Cat</option>
                       </select>
                     </div>
                   </div>
                 </div>
+
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -160,11 +185,12 @@ const HotelHistoryDetail = () => {
                       id = {'breed'}
                       name = {'breed'}
                       type = {'text'}
-                      value = {ubreed}
-                      onChange={(e) => setBreed(e.target.value)}
+                      value = {update?.breed}
+                      onChange={handleOnChange}
                     />
                   </div>
                 </div>
+
                 <div className="row pb-3">
                  <div className="col-25">
                   <Label
@@ -173,38 +199,23 @@ const HotelHistoryDetail = () => {
                     />
                   </div>
                   <div className="col-75">
-                    <div className="form-check form-check-inline w-25">
-                      <Input
-                        id = {'male'}
-                        name = {'gender'}
-                        type = {'radio'}
-                        className={'form-check-input'}
-                        defaultValue={ugender}
-                        // value = {ugender}
-                        onChange={(e) => setGender(e.target.value)}
-                      />
-                      <Label
-                        htmlFor = {'male'}
-                        label = {"Male"}
-                      />
-                    </div>
-                    <div className="form-check form-check-inline">
-                      <Input
-                        id = {'female'}
-                        name = {'gender'}
-                        type = {'radio'}
-                        className={'form-check-input'}
-                        defaultValue={ugender}
-                        // value = {ugender}
-                        onChange={(e) => setGender(e.target.value)}
-                      />
-                      <Label
-                        htmlFor = {'female'}
-                        label = {"Female"}
-                      />
+                    <div className="dropdown dropdown-input">
+                      <select 
+                        className="form-select appointment-font"
+                        value = {update?.gender}
+                        onChange={handleOnChange}
+                        name={"gender"}
+                      >
+                        <option selected="" disabled="" value="">
+                          Choose pet's gender...
+                        </option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </select>
                     </div>
                   </div>
                 </div>
+
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -216,21 +227,23 @@ const HotelHistoryDetail = () => {
                     <div className="dropdown dropdown-input">
                       <select 
                         className="form-select appointment-font"
-                        value = {uweight}
-                        onChange={(e) => setWeight(e.target.value)}
+                        value = {update?.weight}
+                        onChange={handleOnChange}
+                        name={"weight"}
                       >
                         <option selected="" disabled="" value="">
                           Choose pet's weight...
                         </option>
-                        <option>0-5kg</option>
-                        <option>5-10kg</option>
-                        <option>10-20kg</option>
-                        <option>20-30kg</option>
-                        <option>30kg up</option>
+                        <option value="0-5kg">0-5kg</option>
+                        <option value="5-10kg">5-10kg</option>
+                        <option value="10-20kg">10-20kg</option>
+                        <option value="20-30kg">20-30kg</option>
+                        <option value="3-kg up">30kg up</option>
                       </select>
                     </div>
                   </div>
                 </div>
+
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -244,8 +257,8 @@ const HotelHistoryDetail = () => {
                       id = {'booking'}
                       name = {'booking'}
                       type = {'date'}
-                      value = {ubooking}
-                      onChange={(e) => setBooking(e.target.value)}
+                      value = {update?.booking}
+                      onChange={handleOnChange}
                     />
                   </div>
                 </div>
@@ -262,8 +275,8 @@ const HotelHistoryDetail = () => {
                       id = {'pickup'}
                       name = {'pickup'}
                       type = {'date'}
-                      value = {upickup}
-                      onChange={(e) => setPickup(e.target.value)}
+                      value = {update?.pickup}
+                      onChange={handleOnChange}
                     />
                   </div>
                 </div>
@@ -272,10 +285,10 @@ const HotelHistoryDetail = () => {
                   className={'btn button1 contact-font mt-3'}
                   label = {'Update Booking'}
                   style={{ width: "100%", textAlign: "center" }}
-                  // onClick={}
                 />
               </div>
             </form>
+
           </div>
         </div>
       </div>

@@ -32,20 +32,25 @@ const App = () => {
   return (
     <>
     <NavbarUser/>
+
       {/* welcome */}
       <section className="body">
         <div className="container-fluid">
           <div className="row">
+
             <div className="col-6">
               <div className="body-font pt-5 px-5">
+
                 <p className="body-title">
                   TAKE <span style={{ color: "#FAC75C" }}>CARE</span> OF YOUR LOVELY{" "}
                   <span style={{ color: "#FAC75C" }}>PET</span>
                 </p>
+
                 <p>
                   hotel, grooming, and the facilities that we have worth for your
                   pet
                 </p>
+
                 <Button
                   id = {'exploreFacilitiesbtn'}
                   className = {'btn button1 body-font'}
@@ -55,9 +60,11 @@ const App = () => {
                 />
               </div>
             </div>
+
             <div className="col-6">
               <img src="src/assets/catdog.png" alt="catdog" />
             </div>
+
           </div>
         </div>
       </section>
@@ -66,9 +73,11 @@ const App = () => {
       <section className="facilities">
         <div className="container-fluid">
           <div className="row">
+
             <div className="col-9">
               <img src="src/assets/hotel.png" alt="hotel" width="100%" />
             </div>
+
             <div className="col-3">
               <div className="px-5 py-5">
                 <p className="facilities-font">
@@ -85,6 +94,7 @@ const App = () => {
                 />
               </div>
             </div>
+
           </div>
         </div>
       </section>
@@ -92,6 +102,7 @@ const App = () => {
       <section className="facilities">
         <div className="container-fluid">
           <div className="row">
+
             <div className="col-3">
               <div className="px-5 py-5">
                 <p className="facilities-font">Grooming Facilities</p>
@@ -104,9 +115,11 @@ const App = () => {
                 />
               </div>
             </div>
+
             <div className="col-9">
               <img src="src/assets/grooming.png" alt="grooming" width="100%" />
             </div>
+
           </div>
         </div>
       </section>
@@ -115,15 +128,16 @@ const App = () => {
       <section className="contact">
         <div className="container-fluid">
           <div className="row">
+
             <div className="col-5 ps-5 pt-3">
               <img src="src/assets/cat.png" alt="cat" width={600} />
             </div>
+
             <div className="col-7">
               <div className="contact-font px-5">
                 <p className="contact-title">Contact us</p>
-                {/* form */}
-                <form onSubmit={handleSubmit}>
 
+                <form onSubmit={handleSubmit}>
                   <div className="row pb-3">
                     <div className="col-25">
                       <Label
@@ -141,6 +155,7 @@ const App = () => {
                       />
                     </div>
                   </div>
+                  
                   <div className="row pb-3">
                     <div className="col-25">
                       <Label
@@ -158,6 +173,7 @@ const App = () => {
                       />
                     </div>
                   </div>
+
                   <div className="row pb-3">
                     <div className="col-25">
                       <Label
@@ -222,10 +238,13 @@ const App = () => {
                         </div>
                       </div>
                     </div>
+
                   </div>
                 </form>
+
               </div>
             </div>
+            
           </div>
         </div>
       </section>

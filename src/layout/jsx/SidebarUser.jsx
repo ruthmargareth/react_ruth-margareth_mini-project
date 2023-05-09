@@ -9,6 +9,7 @@ const SidebarUser = () => {
               <Link to ='/Grooming-Facilities' className="sidenav-content">
                 Grooming Facilities
               </Link>
+              
               <Link to ='/Hotel-Facilities' className="sidenav-content">
                 Hotel Facilities
               </Link>

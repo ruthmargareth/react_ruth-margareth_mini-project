@@ -4,37 +4,58 @@ import Button from '../../../component/Button'
 import Label from '../../../component/Label'
 import Input from '../../../component/Input'
 import { useState } from 'react'
+import { getAuth, signInWithEmailAndPassword } from '@firebase/auth'
 
 const LoginAdmin = () => {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const auth = getAuth()
+
   const onLogin = (e) => {
     e.preventDefault();
+
+    //send email and password to sign in method firebase
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      console.log('login berhasil', user);
+      navigate('/Landing-Page-Admin')
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
   }
 
   return (
     <>
       <div className="container-fluid login-bg">
+
         <div className="row align-items-start pt-4">
           <div className="col ps-3p">
             <img src="src/assets/woofgang.png" className="logo" alt="woofgang" />
-            <a className="login-font" href="#">
+            <Link to= "/" className="login-font">
               WOOFGANG
-            </a>
+            </Link>
           </div>
         </div>
+
         <section className="text-center">
           <div className="row d-flex justify-content-center">
             <div className="col-lg-8 login-font">
+
               <div className="fw-bold mb-2 login-title">
                 <span style={{ color: "#FAC75C" }}>Log</span> In
               </div>
+
               <div>
                 Welcome to WOOFGANG,{" "}
                 <span style={{ color: "#FAC75C" }}>please</span> put your
               </div>
+
               <div className="mb-5">
                 <span style={{ color: "#FAC75C" }}>login credentials</span> below to
                 start using this website
@@ -53,7 +74,7 @@ const LoginAdmin = () => {
                       name = {'email'}
                       type = {'email'}
                       placeholder={'insert email'}
-                      onChanget={(e) => setEmail(e.target.value)}
+                      onChange={(e) => setEmail(e.target.value)}
                       required
                     />
                   </div>
@@ -86,7 +107,7 @@ const LoginAdmin = () => {
                   />
                 </div>
               </form>
-              <div
+              {/* <div
                   className="footer-font text-left ps-5 pb-3"
                   style={{ fontSize: 20 }}
                 >
@@ -94,10 +115,11 @@ const LoginAdmin = () => {
                     <Link to={'/Sign-Up'}>
                       Sign Up
                     </Link>
-                </div>
+              </div> */}
             </div>
           </div>
         </section>
+        
       </div>
       <img src="src/assets/login.png" alt="login" className="login-pic login-bg" />
     </>

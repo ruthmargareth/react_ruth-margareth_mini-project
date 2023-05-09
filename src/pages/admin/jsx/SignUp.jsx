@@ -4,31 +4,33 @@ import Button from '../../../component/Button'
 import Label from '../../../component/Label'
 import Input from '../../../component/Input'
 import { useState } from 'react'
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
-
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
+import { app } from '../../../firebaseConfig'
 
 const SignUp = () => {
   const navigate = useNavigate()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   
   //get auth function from firebase
-  const auth = getAuth()
+  const auth = getAuth(app)
 
-  const onsubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (e) => {
+    e.preventDefault()
 
     //send email & password to firebase sign up auth service 
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
-      // console.log('signed in: ', user);
+      console.log('signed in: ', user);
+      navigate('/Login-Admin')
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      // console.log('error: ', errorCode + 'message: ', errorMessage);
+      console.log('error: ', errorCode + 'message: ', errorMessage);
     });
   }
 
@@ -43,19 +45,24 @@ const SignUp = () => {
             </a>
           </div>
         </div>
+
         <section className="text-center">
           <div className="row d-flex justify-content-center">
             <div className="col-lg-8 login-font">
+
               <div className="fw-bold mb-2 login-title">
                 <span style={{ color: "#FAC75C" }}>Sign</span> Up
               </div>
+
               <div>
                 Welcome to WOOFGANG,{" "}
                 <span style={{ color: "#FAC75C" }}>please</span> Sign up
               </div>
+
               <div className="mb-5">
                 <span style={{ color: "#FAC75C" }}> before </span> using this website
               </div>
+
               <form>
                 <div className="row pb-3">
                   <div className="col-25">
@@ -93,22 +100,33 @@ const SignUp = () => {
                     />
                   </div>
                 </div>
+
                 <div className="row pt-3 ps-5">
-                <Link to={'/Login-Admin'}>
                   <Button
                     id = {'signup'}
                     className={'btn button1 contact-font'}
                     label = {'Sign up'}
                     style={{ width: "100%", textAlign: "center" }}
                     type="submit"
-                    onClick={onsubmit}
+                    onClick={onSubmit}
                   />
-                </Link>
                 </div>
               </form>
+
+              <div
+                className="footer-font text-left ps-5 pb-3"
+                style={{ fontSize: 20 }}
+              >
+                Already have account? 
+                  <Link to={'/Login-Admin'}>
+                    Log in
+                  </Link>
+              </div>
+              
             </div>
           </div>
         </section>
+
       </div>
       <img src="src/assets/login.png" alt="login" className="login-pic login-bg" />
     </>

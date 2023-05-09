@@ -10,8 +10,31 @@ import { addGrooming } from '../../../GroomingReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import {v4 as uuid} from 'uuid'
 import { useNavigate } from 'react-router-dom'
+import { gql, useMutation } from '@apollo/client'
+import { getGroomingHistory } from './GroomingHistory'
+
+const ADD_GROOMING = gql`
+  mutation MyQuery ($object: Grooming_insert_input!)  {
+    insert_Grooming_one(object: $object){
+      id
+      ownerName
+      ownerPhone
+      petName
+      species
+      breed
+      gender
+      weight
+      packet
+      date
+      time
+    }
+  }
+`
 
 const GroomingAppointment = () => {
+  const [insertGrooming] = useMutation (ADD_GROOMING, {
+    refetchQueries: [getGroomingHistory]
+  })
 
   const [ownerName, setOwnerName] = useState('')
   const [ownerPhone, setOwnerPhone] = useState('')
@@ -43,25 +66,46 @@ const GroomingAppointment = () => {
       date,
       time
     }))
+    insertGrooming({
+      variables: {
+        object: {
+          id: uuid(), 
+          ownerName: ownerName,
+          ownerPhone: ownerPhone,
+          petName: petName,
+          species: species,
+          breed: breed,
+          gender: gender,
+          weight: weight,
+          packet: packet,
+          date: date,
+          time: time
+        }
+      }})
     navigate('/Grooming-History')
   }
 
   return (
     <>
     <NavbarAdmin/>
+
     {/* sidebar */}
     <div className="container-fluid">
       <div className="row">
+
         <SidebarGrooming/>
         {/* content */}
+
         <div className="col-9">
           <div className="content">
+
             <div className="content-font px-5 py-5">
               <p className="content-title">Grooming Appointment</p>
             </div>
 
             <form onSubmit={handleSubmit}>
               <div className="px-5 pb-5 appointment-font">
+                
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -74,10 +118,12 @@ const GroomingAppointment = () => {
                       id = {'ownerName'}
                       name = {'ownerName'}
                       type = {'text'}
+                      required
                       onChange={(e) => setOwnerName(e.target.value)}
                     />
                   </div>
                 </div>
+
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -90,10 +136,12 @@ const GroomingAppointment = () => {
                       id = {'ownerPhone'}
                       name = {'ownerPhone'}
                       type = {'text'}
+                      required
                       onChange={(e) => setOwnerPhone(e.target.value)}
                     />
                   </div>
                 </div>
+
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -106,10 +154,12 @@ const GroomingAppointment = () => {
                       id = {'petName'}
                       name = {'petName'}
                       type = {'text'}
+                      required
                       onChange={(e) => setPetName(e.target.value)}
                     />
                   </div>
                 </div>
+
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -122,16 +172,19 @@ const GroomingAppointment = () => {
                       <select 
                         className="form-select appointment-font"
                         onChange={(e) => setSpecies(e.target.value)}
+                        name={"species"}
+                        required
                       >
                         <option selected="" disabled="" value="">
                           Choose pet's species...
                         </option>
-                        <option>cat</option>
-                        <option>dog</option>
+                        <option>Dog</option>
+                        <option>Cat</option>
                       </select>
                     </div>
                   </div>
                 </div>
+
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -144,10 +197,12 @@ const GroomingAppointment = () => {
                       id = {'breed'}
                       name = {'breed'}
                       type = {'text'}
+                      required
                       onChange={(e) => setBreed(e.target.value)}
                     />
                   </div>
                 </div>
+
                 <div className="row pb-3">
                  <div className="col-25">
                   <Label
@@ -156,38 +211,23 @@ const GroomingAppointment = () => {
                     />
                   </div>
                   <div className="col-75">
-                    <div className="form-check form-check-inline w-25">
-                      <Input
-                        id = {'male'}
-                        name = {'gender'}
-                        type = {'radio'}
-                        className={'form-check-input'}
-                        // defaultValue={'Male'}
-                        value = {'Male'}
+                    <div className="dropdown dropdown-input">
+                      <select 
+                        className="form-select appointment-font"
                         onChange={(e) => setGender(e.target.value)}
-                      />
-                      <Label
-                        htmlFor = {'male'}
-                        label = {"Male"}
-                      />
-                    </div>
-                    <div className="form-check form-check-inline">
-                      <Input
-                        id = {'female'}
-                        name = {'gender'}
-                        type = {'radio'}
-                        className={'form-check-input'}
-                        // defaultValue={'Female'}
-                        value = {'Female'}
-                        onChange={(e) => setGender(e.target.value)}
-                      />
-                      <Label
-                        htmlFor = {'female'}
-                        label = {"Female"}
-                      />
+                        name={"gender"}
+                        required
+                      >
+                        <option selected="" disabled="" value="">
+                          Choose pet's gender...
+                        </option>
+                        <option>Male</option>
+                        <option>Female</option>
+                      </select>
                     </div>
                   </div>
                 </div>
+
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -200,6 +240,8 @@ const GroomingAppointment = () => {
                       <select 
                         className="form-select appointment-font"
                         onChange={(e) => setWeight(e.target.value)}
+                        name={"weight"}
+                        required
                       >
                         <option selected="" disabled="" value="">
                           Choose pet's weight...
@@ -213,6 +255,7 @@ const GroomingAppointment = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -225,6 +268,8 @@ const GroomingAppointment = () => {
                       <select 
                         className="form-select appointment-font"
                         onChange={(e) => setPacket(e.target.value)}
+                        name={"packet"}
+                        required
                       >
                         <option selected="" disabled="" value="">
                           Choose pet's packet...
@@ -237,6 +282,7 @@ const GroomingAppointment = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -250,10 +296,12 @@ const GroomingAppointment = () => {
                       id = {'date'}
                       name = {'date'}
                       type = {'date'}
+                      required
                       onChange={(e) => setDate(e.target.value)}
                     />
                   </div>
                 </div>
+
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -267,24 +315,28 @@ const GroomingAppointment = () => {
                       id = {'time'}
                       name = {'time'}
                       type = {'time'}
+                      required
                       onChange={(e) => setTime(e.target.value)}
                     />
                   </div>
                 </div>
+
                   <Button
                     id = {'submitGrooming'}
                     className={'btn button1 contact-font mt-3'}
                     label = {'Booking Appointment'}
                     style={{ width: "100%", textAlign: "center" }}
                   />
+
               </div>
             </form>
 
           </div>
         </div>
+        
       </div>
     </div>
-    <FooterAdmin/>
+  <FooterAdmin/>
   </>
 )}
 export default GroomingAppointment

@@ -92,7 +92,7 @@ form{
 input, textarea{
     color:#4054BB;
 }
-textarea, input[type=text],[type=password],[type=date],[type=time], [type=email] {
+textarea, input[type=text],[type=password],[type=date],[type=time],[type=email] {
     width: 100%;
     border-radius: 10px;
     box-sizing: border-box;

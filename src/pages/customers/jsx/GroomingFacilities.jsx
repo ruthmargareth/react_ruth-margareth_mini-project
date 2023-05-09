@@ -6,19 +6,25 @@ import '../css/content.css'
 const GroomingFacilities = () => {
   return (
     <>
-      <NavbarUser/>
+    <NavbarUser/>
+
       {/* sidebar */}
       <div className="container-fluid">
         <div className="row">
+
           <SidebarUser/>
           {/* content */}
+
           <div className="col-9">
             <div className="content">
+
               <div className="content-font px-5 py-5">
                 <p className="content-title">Grooming Facilities</p>
               </div>
-              {/* card */}
+
+
               <div className="row row-cols-1 row-cols-md-3 g-4 pb-5">
+                
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
@@ -31,6 +37,7 @@ const GroomingFacilities = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
@@ -43,6 +50,7 @@ const GroomingFacilities = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
@@ -55,6 +63,7 @@ const GroomingFacilities = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
@@ -67,6 +76,7 @@ const GroomingFacilities = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
@@ -79,6 +89,7 @@ const GroomingFacilities = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
@@ -91,6 +102,7 @@ const GroomingFacilities = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="col">
                   <div className="card h-90 card-layout">
                     <img
@@ -103,12 +115,15 @@ const GroomingFacilities = () => {
                     </div>
                   </div>
                 </div>
+
               </div>
+
             </div>
           </div>
+
         </div>
       </div>
-      <FooterUser/>
+    <FooterUser/>
     </>
   )}
 export default GroomingFacilities
