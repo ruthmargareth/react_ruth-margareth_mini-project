@@ -10,7 +10,7 @@ import { useState } from 'react'
 import catdog from './assets/catdog.png'
 import hotel from './assets/hotel.png'
 import grooming from './assets/grooming.png'
-import cat from '.assets/cat.png'
+import cat from './assets/cat.png'
 
 const App = () => {
   const navigate = useNavigate()
