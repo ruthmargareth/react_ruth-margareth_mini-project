@@ -7,10 +7,10 @@ import Label from './component/Label'
 import Input from './component/Input'
 import TextArea from './component/TextArea'
 import { useState } from 'react'
-import catdog from '../../../assets/catdog.png'
-import hotel from '../../../assets/hotel.png'
-import grooming from '../../../assets/grooming.png'
-import cat from '../../../assets/cat.png'
+import catdog from './assets/catdog.png'
+import hotel from './assets/hotel.png'
+import grooming from './assets/grooming.png'
+import cat from '.assets/cat.png'
 
 const App = () => {
   const navigate = useNavigate()
