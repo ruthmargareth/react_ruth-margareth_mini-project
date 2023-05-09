@@ -60,7 +60,6 @@ const LoginAdmin = () => {
                 <span style={{ color: "#FAC75C" }}>login credentials</span> below to
                 start using this website
               </div>
-
               <form>
                 <div className="row pb-3">
                   <div className="col-25">
@@ -80,7 +79,6 @@ const LoginAdmin = () => {
                     />
                   </div>
                 </div>
-
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
@@ -99,7 +97,6 @@ const LoginAdmin = () => {
                     />
                   </div>
                 </div>
-
                 <div className="row pt-3 ps-5">
                   <Button
                     id = {'login'}

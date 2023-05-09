@@ -37,7 +37,6 @@ const SignUp = () => {
   return (
     <>
       <div className="container-fluid login-bg">
-
         <div className="row align-items-start pt-4">
           <div className="col ps-3p">
             <img src="src/assets/woofgang.png" className="logo" alt="woofgang" />
@@ -83,7 +82,6 @@ const SignUp = () => {
                     />
                   </div>
                 </div>
-
                 <div className="row pb-3">
                   <div className="col-25">
                     <Label
