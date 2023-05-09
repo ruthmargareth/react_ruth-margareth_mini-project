@@ -2,7 +2,6 @@ import Button from '../../component/Button'
 import '../css/Navbar.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { getAuth, signOut } from "firebase/auth";
-import Button from '../../component/Button';
 
 const NavbarAdmin = () => {
 
