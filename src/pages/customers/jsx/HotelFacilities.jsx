@@ -1,6 +1,6 @@
 import FooterUser from '../../../layout/jsx/FooterUser'
 import NavbarUser from '../../../layout/jsx/NavbarUser'
-import SidebarUser from '../../../layout/jsx/SidebarUser'
+import SidebarHotelUser from '../../../layout/jsx/SidebarHotelUser'
 import '../css/content.css'
 import outdoor from '../../../assets/outdoor.png'
 import indoor from '../../../assets/indoor.png'
@@ -18,7 +18,7 @@ const HotelFacilities = () => {
       <div className="container-fluid">
         <div className="row">
 
-          <SidebarUser/>
+          <SidebarHotelUser/>
           {/* content */}
 
           <div className="col-9">

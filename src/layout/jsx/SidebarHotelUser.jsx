@@ -1,13 +1,13 @@
 import '../css/Sidebar.css'
 import { Link } from 'react-router-dom'
 
-const SidebarUser = () => {
+const SidebarHotelUser = () => {
     return (
     <>
         <div className="col-3">
             <div className="sidenav-bg">
-              <Link to ='/Grooming-Facilities' className="sidenav-content">
-                Grooming Facilities
+              <Link to ='/Hotel-History-User' className="sidenav-content">
+                Hotel History
               </Link>
               
               <Link to ='/Hotel-Facilities' className="sidenav-content">
@@ -17,4 +17,4 @@ const SidebarUser = () => {
           </div>
     </>
 )}
-export default SidebarUser
+export default SidebarHotelUser

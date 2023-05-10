@@ -26,14 +26,14 @@ const NavbarUser = () => {
                         </li>
 
                         <li className="nav-item mx-4">
-                            <Link to ='/Grooming-Facilities' className="nav-link navbar-font navbar-content" aria-current="page">
-                                Grooming facilities
+                            <Link to ='/Grooming-History-User' className="nav-link navbar-font navbar-content" aria-current="page">
+                                Grooming History
                             </Link>
                         </li>
 
                         <li className="nav-item mx-4">
-                            <Link to ='/Hotel-Facilities' className="nav-link navbar-font navbar-content" aria-current="page">
-                                Hotel facilities
+                            <Link to ='/Hotel-History-User' className="nav-link navbar-font navbar-content" aria-current="page">
+                                Hotel History
                             </Link>
                         </li>
 

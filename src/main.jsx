@@ -4,6 +4,11 @@ import App from './App.jsx'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import HotelFacilities from './pages/customers/jsx/HotelFacilities.jsx'
 import GroomingFacilities from './pages/customers/jsx/GroomingFacilities.jsx'
+import HotelHistoryUser from './pages/customers/jsx/HotelHistoryUser.jsx'
+import GroomingHistoryUser from './pages/customers/jsx/GroomingHistoryUser.jsx'
+import HotelInfoUser from './pages/customers/jsx/HotelInfoUser.jsx'
+import GroomingInfoUser from './pages/customers/jsx/GroomingInfoUser.jsx'
+
 import LoginAdmin from './pages/admin/jsx/LoginAdmin.jsx'
 import LandingPageAdmin from './pages/admin/jsx/LandingPageAdmin.jsx'
 import HotelFacilitiesAdmin from './pages/admin/jsx/HotelFacilitiesAdmin.jsx'
@@ -17,6 +22,7 @@ import HotelHistoryDetail from './pages/admin/jsx/HotelHistoryDetail.jsx'
 import GroomingInfo from './pages/admin/jsx/GroomingInfo.jsx'
 import HotelInfo from './pages/admin/jsx/HotelInfo.jsx'
 import SignUp from './pages/admin/jsx/SignUp.jsx'
+
 import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
 import HotelReducer from './HotelReducer.js'
@@ -40,6 +46,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path ="/" exact element ={<App />} />
             <Route path ="Hotel-Facilities"  element ={<HotelFacilities />} />
             <Route path ="Grooming-Facilities"  element ={<GroomingFacilities />} />
+            <Route path ="Hotel-History-User"  element ={<HotelHistoryUser />} />
+            <Route path ="Grooming-History-User"  element ={<GroomingHistoryUser />} />
+            <Route path ="Hotel-Info-User/:id"  element ={<HotelInfoUser />} />
+            <Route path ="Grooming-Info-User/:id"  element ={<GroomingInfoUser />} />
+
             <Route path ="Login-Admin"  element ={<LoginAdmin />} />
             <Route path ="Landing-Page-Admin"  element ={<LandingPageAdmin />} />
             <Route path ="Hotel-Facilities-Admin"  element ={<HotelFacilitiesAdmin />} />
