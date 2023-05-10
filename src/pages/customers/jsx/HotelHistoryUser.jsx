@@ -4,9 +4,9 @@ import SidebarHotelUser from '../../../layout/jsx/SidebarHotelUser'
 import FooterUser from '../../../layout/jsx/FooterUser'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { deleteHotel } from '../../../HotelReducer'
+import { useSelector } from 'react-redux'
 import { gql, useQuery } from '@apollo/client'
+import Input from '../../../component/Input'
 
 export const getHotelHistory = gql`
 query MyQuery {
@@ -38,6 +38,9 @@ const HotelHistoryUser = () => {
   //mengambil data hotel dengan menggunakan useSelector
   const hotel = useSelector((state) => state.hotel)
 
+  const [search, setSearch] = useState ('')
+  console.log(search)
+
   return (
     <>
     <NavbarUser/>
@@ -51,9 +54,23 @@ const HotelHistoryUser = () => {
 
         <div className="col-9">
           <div className="content">
-
+    
             <div className="content-font px-5 py-5">
-              <p className="content-title">Hotel History</p>
+                <div className="row">
+                    <div className="col">
+                        <p className="content-title">Hotel History</p>
+                    </div>
+
+                    <div className="col-25">
+                        <Input
+                        id = {'search'}
+                        name = {'search'}
+                        type = {'text'}
+                        placeholder = {'search pet name'}
+                        onChange={(e) => setSearch(e.target.value)}
+                        />
+                    </div>
+                </div>
             </div>
 
             <div className="row row-cols-1 row-cols-md-3 g-4 pb-5">
@@ -62,7 +79,13 @@ const HotelHistoryUser = () => {
               {loading ? 
                 <h3 style={{ color: "#4054BB" }}>No Data History Available</h3>
               :
-              data?.Hotel.map(item =>
+              data?.Hotel
+                .filter((item) => {
+                    return search.toLowerCase() === ''
+                    ? item 
+                    : item.petName.toLowerCase().includes(search);
+                })
+              .map(item =>
 
               <div className="col">
                 <div className="card h-90 card-bg">

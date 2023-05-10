@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteHotel } from '../../../HotelReducer'
 import { gql, useMutation, useQuery } from '@apollo/client'
+import Input from '../../../component/Input'
 
 export const getHotelHistory = gql`
 query MyQuery {
@@ -99,6 +100,10 @@ const HotelHistory = () => {
     })
   }
 
+  const [search, setSearch] = useState ('')
+  console.log(search)
+
+
   return (
     <>
     <NavbarAdmin/>
@@ -114,7 +119,22 @@ const HotelHistory = () => {
           <div className="content">
 
             <div className="content-font px-5 py-5">
-              <p className="content-title">Hotel History</p>
+              <div className="row">
+                <div className="col">
+                  <p className="content-title">Grooming History</p>
+                </div>
+
+                <div className="col-25">
+                  <Input
+                    id = {'search'}
+                    name = {'search'}
+                    type = {'text'}
+                    placeholder = {'search pet name'}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                </div>
+
+              </div>
             </div>
 
             <div className="row row-cols-1 row-cols-md-3 g-4 pb-5">
@@ -123,7 +143,13 @@ const HotelHistory = () => {
               {loading ? 
                 <h3 style={{ color: "#4054BB" }}>No Data History Available</h3>
               :
-              data?.Hotel.map(item =>
+              data?.Hotel
+                .filter((item) => {
+                  return search.toLowerCase() === ''
+                  ? item 
+                  : item.petName.toLowerCase().includes(search);
+                })
+              .map(item =>
 
               <div className="col">
                 <div className="card h-90 card-bg">
@@ -152,7 +178,7 @@ const HotelHistory = () => {
                           <Button
                             id = {'editbtn'}
                             className = {'btn button2 body-font'}
-                            label = {'Edit'}
+                            label = {'Update'}
                             style={{ width: 150, textAlign: "center" }}
                           />
                         </Link>
