@@ -80,13 +80,6 @@ const NavbarAdmin = () => {
                                 </Link>
                             </li>
 
-                            <li className="nav-item mx-4">
-                                <Link to ='#' className="nav-link navbar-font navbar-content"
-                                aria-current="page">
-                                    Contact us
-                                </Link>
-                            </li>
-
                         </ul>
                     </div>
                     {/* login */}

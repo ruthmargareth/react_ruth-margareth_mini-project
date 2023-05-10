@@ -44,8 +44,16 @@ const FooterUser = () => {
                                             Facilities Hotel
                                         </Link>
 
+                                        <Link to ='Hotel-History-User' className="my-1 footer-link">
+                                            History Hotel
+                                        </Link>
+
                                         <Link to ='Grooming-Facilities' className="my-1 footer-link">
                                             Facilities Grooming
+                                        </Link>
+
+                                        <Link to ='Grooming-History-User' className="my-1 footer-link">
+                                            History Grooming
                                         </Link>
                                     </div>
                                 </div>

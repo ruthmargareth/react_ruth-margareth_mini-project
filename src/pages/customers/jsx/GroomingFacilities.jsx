@@ -1,6 +1,6 @@
 import FooterUser from '../../../layout/jsx/FooterUser'
 import NavbarUser from '../../../layout/jsx/NavbarUser'
-import SidebarUser from '../../../layout/jsx/SidebarUser'
+import SidebarGroomingUser from '../../../layout/jsx/SidebarGroomingUser'
 import '../css/content.css'
 import bath from '../../../assets/bath.png'
 import blowdry from '../../../assets/blowdry.png'
@@ -19,7 +19,7 @@ const GroomingFacilities = () => {
       <div className="container-fluid">
         <div className="row">
 
-          <SidebarUser/>
+          <SidebarGroomingUser/>
           {/* content */}
 
           <div className="col-9">
