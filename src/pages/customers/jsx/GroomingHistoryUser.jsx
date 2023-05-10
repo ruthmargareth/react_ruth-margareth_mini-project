@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { gql, useQuery } from '@apollo/client'
+import Input from '../../../component/Input'
 
 export const getGroomingHistory = gql`
 query MyQuery {
@@ -37,6 +38,9 @@ const GroomingHistoryUser = () => {
   
   const grooming = useSelector((state) => state.grooming)
 
+  const [search, setSearch] = useState ('')
+  console.log(search)
+
 
   return (
     <>
@@ -52,8 +56,22 @@ const GroomingHistoryUser = () => {
         <div className="col-9">
           <div className="content">
 
-            <div className="content-font px-5 py-5">
-              <p className="content-title">Grooming History</p>
+          <div className="content-font px-5 py-5">
+                <div className="row">
+                    <div className="col">
+                        <p className="content-title">Grooming History</p>
+                    </div>
+
+                    <div className="col-25">
+                        <Input
+                        id = {'search'}
+                        name = {'search'}
+                        type = {'text'}
+                        placeholder = {'search pet name'}
+                        onChange={(e) => setSearch(e.target.value)}
+                        />
+                    </div>
+                </div>
             </div>
 
             <div className="row row-cols-1 row-cols-md-3 g-4 pb-5">
@@ -61,7 +79,13 @@ const GroomingHistoryUser = () => {
               {loading ? 
                 <h3 style={{ color: "#4054BB" }}>No Data History Available</h3>
               :
-                data?.Grooming.map(item =>
+                data?.Grooming
+                    .filter((item) => {
+                        return search.toLowerCase() === ''
+                        ? item 
+                        : item.petName.toLowerCase().includes(search);
+                    })
+                .map(item =>
 
                 <div className="col">
                   <div className="card h-90 card-bg">
