@@ -121,7 +121,7 @@ const HotelHistory = () => {
             <div className="content-font px-5 py-5">
               <div className="row">
                 <div className="col">
-                  <p className="content-title">Grooming History</p>
+                  <p className="content-title">Hotel History</p>
                 </div>
 
                 <div className="col-25">

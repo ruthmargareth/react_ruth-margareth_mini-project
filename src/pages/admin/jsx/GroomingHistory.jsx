@@ -83,7 +83,6 @@ const GroomingHistory = () => {
   
   //check if data is still fetching
   if (!loading && error !== undefined){
-    //set "grooming" response to state "Grooming"
     setGrooming(data.Grooming)
   }
   
